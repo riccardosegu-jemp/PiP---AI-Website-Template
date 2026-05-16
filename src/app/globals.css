@@ -46,75 +46,267 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* Brand colors — da Figma */
+  --color-brand-navy: var(--brand-navy);
+  --color-brand-navy-dark: var(--brand-navy-dark);
+  --color-brand-navy-light: var(--brand-navy-light);
+  --color-brand-teal: var(--brand-teal);
+  --color-brand-teal-light: var(--brand-teal-light);
+  --color-brand-surface: var(--brand-surface);
+  --color-brand-border: var(--brand-border);
+
+  /* Spacing — da Figma */
+  --spacing-0: 0px;
+  --spacing-050: 2px;
+  --spacing-100: 4px;
+  --spacing-150: 6px;
+  --spacing-200: 8px;
+  --spacing-300: 12px;
+  --spacing-400: 16px;
+  --spacing-600: 24px;
+  --spacing-800: 32px;
+  --spacing-1200: 48px;
+  --spacing-1600: 64px;
+  --spacing-4000: 160px;
+
+  /* Border Radius — da Figma */
+  --radius-100: 4px;
+  --radius-200: 8px;
+  --radius-400: 16px;
+  --radius-full: 9999px;
+
+  /* Blur — da Figma */
+  --blur-100: 4px;
+
+  /* Depth / Shadow — da Figma */
+  --depth-0: 0px;
+  --depth-025: 1px;
+  --depth-100: 4px;
+  --depth-400: 16px;
+  --depth-800: 32px;
+
+  /* Icon sizes — da Figma */
+  --icon-small: 24px;
+  --icon-medium: 32px;
+  --icon-large: 40px;
+
+  /* ── Text color tokens — da Figma Foundation/Text ── */
+
+  /* Base */
+  --text-default:                #1e1e1e;   /* textDefaultDefault */
+  --text-secondary:              #757575;   /* textDefaultSecondary */
+  --text-tertiary:               #b3b3b3;   /* textDefaultTertiary */
+
+  /* Disabled */
+  --text-disabled:               #b3b3b3;   /* textDisabledDefault */
+  --text-disabled-on:            #b3b3b3;   /* textDisabledOnDisabled */
+
+  /* Brand */
+  --text-brand:                  #2c2c2c;   /* textBrandDefault */
+  --text-brand-tertiary:         #757575;   /* textBrandTertiary */
+  --text-on-brand:               #f5f5f5;   /* textBrandOnBrand */
+  --text-on-brand-secondary:     #1e1e1e;   /* textBrandOnBrandSecondary */
+  --text-on-brand-tertiary:      #2c2c2c;   /* textBrandOnBrandTertiary */
+
+  /* Neutral */
+  --text-neutral:                #303030;   /* textNeutralDefault */
+  --text-neutral-tertiary:       #767676;   /* textNeutralTertiary */
+  --text-on-neutral-secondary:   #303030;   /* textNeutralOnNeutralSecondary */
+  --text-on-neutral-tertiary:    #424242;   /* textNeutralOnNeutralTertiary */
+
+  /* Danger */
+  --text-danger:                 #8f0b09;   /* textDangerDefault */
+  --text-on-danger:              #fde8e7;   /* textDangerOnDanger */
+  --text-on-danger-secondary:    #8f0b09;   /* textDangerOnDangerSecondary */
+  --text-on-danger-tertiary:     #8f0b09;   /* textDangerOnDangerTertiary */
+
+  /* Warning */
+  --text-on-warning:             #401b00;   /* textWarningOnWarning */
+  --text-on-warning-secondary:   #682d02;   /* textWarningOnWarningSecondary */
+  --text-on-warning-tertiary:    #522404;   /* textWarningOnWarningTertiary */
+
+  /* Positive / Success */
+  --text-on-positive:            #ebffee;   /* textPositiveOnPositive */
+  --text-on-positive-secondary:  #02542d;   /* textPositiveOnPositiveSecondary */
+
+  /* ── Typography — da Figma Foundation/Text ── */
+
+  /* Font families */
+  --font-sans: var(--font-sans);           /* Inter — heading & body */
+  --font-mono-face: "Roboto Mono", monospace; /* Roboto Mono — code */
+
+  /* Font weights */
+  --weight-regular:   400;   /* body, subheading, subtitle */
+  --weight-semibold:  600;   /* heading, body-strong */
+  --weight-bold:      700;   /* title page */
+  --weight-italic:    "italic"; /* body-emphasis */
+
+  /* ── Type scale primitives (scale-02 → scale-09) ── */
+  --scale-02: 14px;   /* Body Small sm */
+  --scale-03: 16px;   /* Body md · Subheading sm */
+  --scale-04: 20px;   /* Body lg · Subheading md · Heading sm */
+  --scale-05: 24px;   /* Subheading lg · Heading md · Subtitle sm */
+  --scale-06: 32px;   /* Heading lg · Subtitle md */
+  --scale-07: 40px;   /* Subtitle lg · Title Page sm */
+  --scale-08: 48px;   /* Title Page md */
+  --scale-09: 56px;   /* Title Page lg */
+
+  /* ── Typography roles — responsive (sm/md/lg) ── */
+
+  /* Title Page → bold, family-sans */
+  --title-page-sm:     var(--scale-07);   /* 40px */
+  --title-page-md:     var(--scale-08);   /* 48px — default */
+  --title-page-lg:     var(--scale-09);   /* 56px */
+  --title-page-weight: var(--weight-bold);
+
+  /* Subtitle → regular, family-sans */
+  --subtitle-sm:       var(--scale-05);   /* 24px */
+  --subtitle-md:       var(--scale-06);   /* 32px — default */
+  --subtitle-lg:       var(--scale-07);   /* 40px */
+  --subtitle-weight:   var(--weight-regular);
+
+  /* Heading → semibold, family-sans */
+  --heading-sm:        var(--scale-04);   /* 20px */
+  --heading-md:        var(--scale-05);   /* 24px — default */
+  --heading-lg:        var(--scale-06);   /* 32px */
+  --heading-weight:    var(--weight-semibold);
+
+  /* Subheading → regular, family-sans */
+  --subheading-sm:     var(--scale-03);   /* 16px */
+  --subheading-md:     var(--scale-04);   /* 20px — default */
+  --subheading-lg:     var(--scale-05);   /* 24px */
+  --subheading-weight: var(--weight-regular);
+
+  /* Body → regular / semibold / italic, family-sans */
+  --body-sm:                var(--scale-02);   /* 14px */
+  --body-md:                var(--scale-03);   /* 16px — default */
+  --body-lg:                var(--scale-04);   /* 20px */
+  --body-weight-regular:    var(--weight-regular);
+  --body-weight-strong:     var(--weight-semibold);
+  --body-weight-emphasis:   var(--weight-regular); /* + italic */
+
+  /* Body Small — same scale, starts at sm=scale-02 */
+  --body-small-sm:     var(--scale-02);   /* 14px — default */
+  --body-small-md:     var(--scale-03);   /* 16px */
+  --body-small-lg:     var(--scale-04);   /* 20px */
+
+  /* Input — family-sans, body scale, weight-regular */
+  /* (alias di body — documenta l'uso esplicito per i form) */
+  --input-family:        var(--font-sans);
+  --input-size-sm:       var(--scale-02);   /* 14px */
+  --input-size-md:       var(--scale-03);   /* 16px — default */
+  --input-size-lg:       var(--scale-04);   /* 20px */
+  --input-weight:        var(--weight-regular);
+
+  /* Body Code — family-mono (Roboto Mono), body scale, weight-regular */
+  --code-family:         "Roboto Mono", monospace;
+  --code-size-sm:        var(--scale-02);   /* 14px */
+  --code-size-md:        var(--scale-03);   /* 16px — default */
+  --code-size-lg:        var(--scale-04);   /* 20px */
+  --code-weight:         var(--weight-regular);
+
+  /* Single Line — body scale, tutti e tre i weight espliciti */
+  /* Usato per testi su singola riga: label, voci lista, celle tabella */
+  --single-line-size-sm:            var(--scale-02);   /* 14px */
+  --single-line-size-md:            var(--scale-03);   /* 16px — default */
+  --single-line-size-lg:            var(--scale-04);   /* 20px */
+  --single-line-weight-regular:     var(--weight-regular);    /* Base */
+  --single-line-weight-strong:      var(--weight-semibold);   /* Strong */
+  --single-line-weight-emphasis:    var(--weight-regular);    /* Emphasis = italic 400 */
+
+  /* Breakpoints — da Figma */
+  --breakpoint-mobile:   375px;
+  --breakpoint-tablet:   768px;
+  --breakpoint-desktop:  1200px;
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
+  /* Base — Light mode (da Figma) */
+  --background: #ffffff;
+  --foreground: #111827;
+  --card: #ffffff;
+  --card-foreground: #111827;
+  --popover: #ffffff;
+  --popover-foreground: #111827;
+  --primary: #1b3a5c;
+  --primary-foreground: #ffffff;
+  --secondary: #f0f4f8;
+  --secondary-foreground: #1b3a5c;
+  --muted: #f3f4f6;
+  --muted-foreground: #6b7280;
+  --accent: #2a7f6f;
+  --accent-foreground: #ffffff;
+  --destructive: #d4183d;
+  --border: #e5e9ef;
+  --input: #f3f4f6;
+  --ring: #1b3a5c;
   --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+
+  /* Charts (da Figma) */
+  --chart-1: #4f46e5;
+  --chart-2: #10b981;
+  --chart-3: #f59e0b;
+  --chart-4: #d946ef;
+  --chart-5: #f97316;
+
+  /* Sidebar */
+  --sidebar: #fafafa;
+  --sidebar-foreground: #111827;
+  --sidebar-primary: #1b3a5c;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f3f4f6;
+  --sidebar-accent-foreground: #111827;
+  --sidebar-border: #e5e9ef;
+  --sidebar-ring: #1b3a5c;
+
+  /* Brand colors */
+  --brand-navy: #1b3a5c;
+  --brand-navy-dark: #0f2740;
+  --brand-navy-light: #2b5278;
+  --brand-teal: #2a7f6f;
+  --brand-teal-light: #3dae9b;
+  --brand-surface: #f8f9fb;
+  --brand-border: #e5e9ef;
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  /* Base — Dark mode (da Figma) */
+  --background: #171717;
+  --foreground: #fafafa;
+  --card: #171717;
+  --card-foreground: #fafafa;
+  --popover: #171717;
+  --popover-foreground: #fafafa;
+  --primary: #fafafa;
+  --primary-foreground: #262626;
+  --secondary: #262626;
+  --secondary-foreground: #fafafa;
+  --muted: #262626;
+  --muted-foreground: #a1a1aa;
+  --accent: #262626;
+  --accent-foreground: #fafafa;
+  --destructive: #7f1d1d;
+  --border: #262626;
+  --input: #262626;
+  --ring: #525252;
+
+  /* Charts */
+  --chart-1: #4f46e5;
+  --chart-2: #10b981;
+  --chart-3: #f59e0b;
+  --chart-4: #d946ef;
+  --chart-5: #f97316;
+
+  /* Sidebar */
+  --sidebar: #27272a;
+  --sidebar-foreground: #fafafa;
+  --sidebar-primary: #4f46e5;
+  --sidebar-primary-foreground: #fafafa;
+  --sidebar-accent: #262626;
+  --sidebar-accent-foreground: #fafafa;
+  --sidebar-border: #262626;
+  --sidebar-ring: #525252;
 }
 
 @layer base {
