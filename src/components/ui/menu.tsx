@@ -46,7 +46,7 @@ function MenuContent({
   className,
   sideOffset = 6,
   ...props
-}: MenuPrimitive.Positioner.Props) {
+}: Omit<MenuPrimitive.Positioner.Props, "className"> & { className?: string }) {
   return (
     <MenuPortal>
       <MenuPositioner sideOffset={sideOffset} {...props}>
