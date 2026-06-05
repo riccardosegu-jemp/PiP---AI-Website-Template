@@ -1,7 +1,7 @@
 import React from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { MessageSquare, Paperclip, Wrench, CheckCircle2, Truck, Settings2, Layers, Shield, ClipboardCheck, Drill, PackageCheck } from "lucide-react"
+import { MessageSquare, Paperclip, Wrench, CheckCircle2, Truck, Settings2, Layers, Shield, ClipboardCheck, Drill, PackageCheck, Target, User, RefreshCw } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ContactFormPreview } from "@/components/contact-form-preview"
 import {
@@ -210,33 +210,40 @@ const casi = [
 const features = [
   {
     id: "consegne",
-    icona: "🎯",
+    icona_id: "target",
     titolo: "Consegne rispettate al 94%",
     descrizione:
       "Monitoriamo ogni commessa con OTD settimanale. In caso di rischio ritardo, avvisiamo proattivamente con piano di recupero.",
   },
   {
     id: "referente",
-    icona: "👤",
+    icona_id: "user",
     titolo: "Referente unico dedicato",
     descrizione:
       "Niente call center. Ogni cliente ha un nome e un numero diretto: il tuo project manager risponde entro 2 ore lavorative.",
   },
   {
     id: "qualita",
-    icona: "✅",
+    icona_id: "check-circle-2",
     titolo: "Qualità certificata ISO 9001",
     descrizione:
       "Sistema qualità attivo dal 2009, con audit annuale Bureau Veritas. Ogni lotto ha report CMM allegato alla bolla.",
   },
   {
     id: "flessibilita",
-    icona: "🔄",
+    icona_id: "refresh-cw",
     titolo: "Flessibilità lotti e urgenze",
     descrizione:
       "Gestiamo commesse da 1 a 500.000 pezzi. Canale prioritario per urgenze con risposta in 4 ore e produzione entro 5 giorni.",
   },
 ]
+
+const featuresIcone: Record<string, React.ReactNode> = {
+  "target":         <Target className="w-5 h-5" />,
+  "user":           <User className="w-5 h-5" />,
+  "check-circle-2": <CheckCircle2 className="w-5 h-5" />,
+  "refresh-cw":     <RefreshCw className="w-5 h-5" />,
+}
 
 const stats = [
   { id: "anni", valore: "35", label: "anni di attività", descrizione: "In attività dal 1989" },
@@ -393,7 +400,9 @@ export default function Home() {
               <div className="flex flex-col gap-6 mt-2">
                 {features.map((f) => (
                   <div key={f.id} className="flex gap-4">
-                    <span className="flex-shrink-0 w-10 h-10 rounded-full bg-white flex items-center justify-center text-xl border border-[var(--brand-border)]">{f.icona}</span>
+                    <span className="flex-shrink-0 w-10 h-10 rounded-full bg-white flex items-center justify-center text-[var(--brand-navy)] border border-[var(--brand-border)]">
+                      {featuresIcone[f.icona_id]}
+                    </span>
                     <div>
                       <h3 className="font-semibold text-[var(--brand-navy)] mb-1">{f.titolo}</h3>
                       <p className="text-sm text-gray-500 leading-relaxed">{f.descrizione}</p>

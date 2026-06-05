@@ -1,11 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-
-// n8n: aggiorna con i dati del cliente
-const logo_src = "/logo.svg"
-const logo_alt = "Logo"
-const nome_azienda = "BrandPMI"
+import { logo_src, logo_alt, nome_azienda } from "@/lib/brand"
 
 const links = [
   { label: "Servizi", href: "/servizi" },
