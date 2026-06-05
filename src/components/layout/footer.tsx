@@ -171,12 +171,12 @@ export function Footer() {
             {legale.copyright} &nbsp;·&nbsp; {legale.piva} &nbsp;·&nbsp; {legale.rea}
           </p>
           <div className="flex gap-6">
-            <Link href="/privacy" className="text-xs text-white/40 hover:text-white transition-colors">
+            <a href="https://www.iubenda.com/privacy-policy/98533713" target="_blank" rel="noopener noreferrer" className="text-xs text-white/40 hover:text-white transition-colors">
               Privacy Policy
-            </Link>
-            <Link href="/cookie" className="text-xs text-white/40 hover:text-white transition-colors">
+            </a>
+            <a href="https://www.iubenda.com/privacy-policy/98533713/cookie-policy" target="_blank" rel="noopener noreferrer" className="text-xs text-white/40 hover:text-white transition-colors">
               Cookie Policy
-            </Link>
+            </a>
           </div>
         </div>
 

@@ -3,6 +3,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { MessageSquare, Paperclip, Wrench, CheckCircle2, Truck, Settings2, Layers, Shield, ClipboardCheck, Drill, PackageCheck } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { ContactFormPreview } from "@/components/contact-form-preview"
 import {
   Section,
   SectionContainer,
@@ -20,9 +21,6 @@ import {
   CardFooter,
   CardContent,
 } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Label } from "@/components/ui/label"
 
 // ── HERO ─────────────────────────────────
 // n8n: PROMPT-06
@@ -448,31 +446,7 @@ export default function Home() {
                 </li>
               </ul>
             </div>
-            <form action={process.env.NEXT_PUBLIC_FORM_ENDPOINT ?? "#"} method="POST" className="flex flex-col gap-4">
-              <div className="grid grid-cols-2 gap-3">
-                <div className="flex flex-col gap-1">
-                  <Label htmlFor="nome-preview">Nome</Label>
-                  <Input id="nome-preview" name="nome" placeholder="Mario" required />
-                </div>
-                <div className="flex flex-col gap-1">
-                  <Label htmlFor="cognome-preview">Cognome</Label>
-                  <Input id="cognome-preview" name="cognome" placeholder="Rossi" required />
-                </div>
-              </div>
-              <div className="flex flex-col gap-1">
-                <Label htmlFor="azienda-preview">Azienda</Label>
-                <Input id="azienda-preview" name="azienda" placeholder="Rossi S.r.l." />
-              </div>
-              <div className="flex flex-col gap-1">
-                <Label htmlFor="email-preview">Email</Label>
-                <Input id="email-preview" name="email" type="email" placeholder="mario@rossi.it" required />
-              </div>
-              <div className="flex flex-col gap-1">
-                <Label htmlFor="messaggio-preview">Descrivi la tua esigenza</Label>
-                <Textarea id="messaggio-preview" name="messaggio" placeholder="Breve descrizione del progetto o del componente da produrre..." rows={4} />
-              </div>
-              <Button type="submit" className="self-start">Invia la richiesta →</Button>
-            </form>
+            <ContactFormPreview />
           </div>
         </SectionContainer>
       </Section>

@@ -47,10 +47,14 @@ export default function Contatti() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setStato("loading")
-    const formData = new FormData(e.currentTarget)
-    const endpoint = process.env.NEXT_PUBLIC_FORM_ENDPOINT ?? ""
+    const fd = new FormData(e.currentTarget)
+    const payload = Object.fromEntries(fd.entries())
     try {
-      const res = await fetch(endpoint, { method: "POST", body: formData })
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(payload),
+      })
       setStato(res.ok ? "success" : "error")
     } catch {
       setStato("error")
