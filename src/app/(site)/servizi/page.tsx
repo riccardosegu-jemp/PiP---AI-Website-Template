@@ -35,7 +35,7 @@ export default async function Servizi() {
       {servizi.map((s, i) => (
         <section
           key={s._id}
-          id={s.slug}
+          id={s.slug ?? undefined}
           className="py-16 border-b border-[var(--brand-border)]"
           style={{ background: i % 2 === 0 ? "white" : "var(--brand-surface)" }}
         >
@@ -54,7 +54,7 @@ export default async function Servizi() {
             <div className="flex flex-col gap-6">
               <h2 className="text-2xl md:text-3xl font-bold text-[var(--brand-navy)] leading-tight">{s.titolo}</h2>
               <p className="text-gray-600 leading-relaxed">{s.descrizione_completa}</p>
-              {s.punti_chiave?.length > 0 && (
+              {s.punti_chiave && s.punti_chiave.length > 0 && (
                 <ul className="flex flex-col gap-2">
                   {s.punti_chiave.map((p, j) => (
                     <li key={j} className="flex items-start gap-2 text-sm text-gray-700">

@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
+import { submitContactForm } from "@/lib/contact"
 
 // ── CONTATTI (full) ───────────────────────
 // n8n: PROMPT-14
@@ -47,18 +48,8 @@ export default function Contatti() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setStato("loading")
-    const fd = new FormData(e.currentTarget)
-    const payload = Object.fromEntries(fd.entries())
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(payload),
-      })
-      setStato(res.ok ? "success" : "error")
-    } catch {
-      setStato("error")
-    }
+    const result = await submitContactForm(e.currentTarget)
+    setStato(result.ok ? "success" : "error")
   }
 
   return (
@@ -86,6 +77,8 @@ export default function Contatti() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="flex flex-col gap-8">
+                  {/* honeypot anti-spam: invisibile agli utenti, compilato solo dai bot */}
+                  <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
                   <div className="flex flex-col gap-4">
                     <h2 className="text-base font-semibold text-[var(--brand-navy)] border-b border-[var(--brand-border)] pb-2">Dati di contatto</h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

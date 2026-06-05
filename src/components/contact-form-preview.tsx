@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
+import { submitContactForm } from "@/lib/contact"
 
 export function ContactFormPreview() {
   const [stato, setStato] = useState<"idle" | "loading" | "success" | "error">("idle")
@@ -12,18 +13,8 @@ export function ContactFormPreview() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setStato("loading")
-    const fd = new FormData(e.currentTarget)
-    const payload = Object.fromEntries(fd.entries())
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(payload),
-      })
-      setStato(res.ok ? "success" : "error")
-    } catch {
-      setStato("error")
-    }
+    const result = await submitContactForm(e.currentTarget)
+    setStato(result.ok ? "success" : "error")
   }
 
   if (stato === "success") {
@@ -39,6 +30,8 @@ export function ContactFormPreview() {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      {/* honeypot anti-spam: invisibile agli utenti, compilato solo dai bot */}
+      <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
       <div className="grid grid-cols-2 gap-3">
         <div className="flex flex-col gap-1">
           <Label htmlFor="nome-preview">Nome</Label>

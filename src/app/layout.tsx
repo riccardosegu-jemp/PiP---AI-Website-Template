@@ -14,12 +14,12 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="it" className={`${inter.variable} ${geistMono.variable} h-full antialiased`}>
-      <Script
-        src="https://embeds.iubenda.com/widgets/e164dbb6-76ee-471a-af39-765056ca77c6.js"
-        strategy="beforeInteractive"
-      />
       <body className="min-h-full flex flex-col">
         {children}
+        <Script
+          src="https://embeds.iubenda.com/widgets/e164dbb6-76ee-471a-af39-765056ca77c6.js"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   )

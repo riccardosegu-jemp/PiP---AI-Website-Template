@@ -34,7 +34,7 @@ export default async function CaseStudy() {
       {primo && (
         <Section variant="default">
           <SectionContainer>
-            <Card id={primo.slug} className="overflow-hidden">
+            <Card id={primo.slug ?? undefined} className="overflow-hidden">
               <div className="grid grid-cols-1 md:grid-cols-2">
                 <div className="relative aspect-[4/3] md:aspect-auto md:min-h-[360px] bg-[var(--brand-surface)]">
                   {primo.immagine_url && (
@@ -51,7 +51,7 @@ export default async function CaseStudy() {
                 <CardContent className="p-8 flex flex-col gap-6 justify-center">
                   <p className="text-xs font-medium text-[var(--brand-teal)] uppercase tracking-widest">{primo.settore}</p>
                   <h2 className="text-2xl font-bold text-[var(--brand-navy)] leading-tight">{primo.titolo}</h2>
-                  {primo.metriche?.length > 0 && (
+                  {primo.metriche && primo.metriche.length > 0 && (
                     <div className="grid grid-cols-2 gap-3">
                       {primo.metriche.map((m) => (
                         <div key={m._key} className="border border-[var(--brand-border)] rounded p-3 text-center">
@@ -62,9 +62,11 @@ export default async function CaseStudy() {
                     </div>
                   )}
                   <p className="text-sm text-gray-600 leading-relaxed">{primo.descrizione_completa}</p>
-                  <div>
-                    <Button render={<Link href={`/case-study#${primo.slug}`} />}>Leggi il caso completo →</Button>
-                  </div>
+                  {primo.slug && (
+                    <div>
+                      <Button render={<Link href={`/case-study#${primo.slug}`} />}>Leggi il caso completo →</Button>
+                    </div>
+                  )}
                 </CardContent>
               </div>
             </Card>
@@ -77,7 +79,7 @@ export default async function CaseStudy() {
           <SectionContainer>
             <SectionGrid cols={2}>
               {restanti.map((c) => (
-                <Card key={c._id} id={c.slug} className="flex flex-col overflow-hidden">
+                <Card key={c._id} id={c.slug ?? undefined} className="flex flex-col overflow-hidden">
                   <div className="relative h-56 bg-[var(--brand-surface)]">
                     {c.immagine_url && (
                       <Image
@@ -92,7 +94,7 @@ export default async function CaseStudy() {
                   <CardContent className="p-6 flex flex-col gap-4 flex-1">
                     <p className="text-xs font-medium text-[var(--brand-teal)] uppercase tracking-widest">{c.settore}</p>
                     <h2 className="text-lg font-bold text-[var(--brand-navy)] leading-snug">{c.titolo}</h2>
-                    {c.metriche?.length > 0 && (
+                    {c.metriche && c.metriche.length > 0 && (
                       <div className="grid grid-cols-2 gap-3">
                         {c.metriche.map((m) => (
                           <div key={m._key} className="border border-[var(--brand-border)] rounded p-3 text-center">
@@ -104,9 +106,11 @@ export default async function CaseStudy() {
                     )}
                     <p className="text-sm text-gray-600 leading-relaxed">{c.descrizione_completa}</p>
                   </CardContent>
-                  <CardFooter>
-                    <Button variant="link" render={<Link href={`/case-study#${c.slug}`} />}>Leggi il caso →</Button>
-                  </CardFooter>
+                  {c.slug && (
+                    <CardFooter>
+                      <Button variant="link" render={<Link href={`/case-study#${c.slug}`} />}>Leggi il caso →</Button>
+                    </CardFooter>
+                  )}
                 </Card>
               ))}
             </SectionGrid>
