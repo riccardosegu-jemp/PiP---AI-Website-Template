@@ -96,7 +96,7 @@ export default async function ChiSiamo() {
                   <CardContent className="p-6 flex flex-col gap-1">
                     <p className="font-bold text-[var(--brand-navy)] text-lg">{c.titolo}</p>
                     <p className="text-sm text-gray-500">{c.ente}</p>
-                    {c.dal && <p className="text-xs text-gray-400">Certificato dal {c.dal}</p>}
+                    {c.dal && <p className="text-xs text-gray-600">Certificato dal {c.dal}</p>}
                   </CardContent>
                 </Card>
               ))}

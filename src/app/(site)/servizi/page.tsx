@@ -30,6 +30,7 @@ export default async function Servizi() {
 
   return (
     <>
+      <h1 className="sr-only">Servizi</h1>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdServizi) }}

@@ -21,6 +21,7 @@ export default async function CaseStudy() {
 
   return (
     <>
+      <h1 className="sr-only">Case Study</h1>
       <Section variant="muted" size="lg">
         <SectionContainer>
           <SectionHeader align="center">
