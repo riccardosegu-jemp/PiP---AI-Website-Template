@@ -22,8 +22,22 @@ export default async function ChiSiamo() {
   const certificazioni = settings?.certificazioni ?? []
   const indirizzo = [settings?.indirizzo, settings?.citta].filter(Boolean).join(", ")
 
+  // n8n: PROMPT-18-BREADCRUMB — aggiorna url_sito con il dominio reale del cliente
+  const jsonLdBreadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.brandpmi.it" },
+      { "@type": "ListItem", "position": 2, "name": "Chi Siamo" },
+    ],
+  }
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }}
+      />
       <section className="relative min-h-[60vh] flex items-end">
         <Image src={heroImg} alt={cs?.hero_immagine_alt || "Officina meccanica"} fill className="object-cover" priority />
         <div className="absolute inset-0 bg-[var(--brand-navy)]/65" />

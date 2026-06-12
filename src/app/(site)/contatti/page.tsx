@@ -21,9 +21,23 @@ export default async function Contatti() {
   const indirizzo = [settings?.indirizzo, settings?.citta].filter(Boolean).join(", ")
   const email = settings?.email ?? "info@brandpmi.it"
 
+  // n8n: PROMPT-18-BREADCRUMB — aggiorna url_sito con il dominio reale del cliente
+  const jsonLdBreadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.brandpmi.it" },
+      { "@type": "ListItem", "position": 2, "name": "Contatti" },
+    ],
+  }
+
   return (
     <>
       <h1 className="sr-only">Contatti</h1>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }}
+      />
       <Section variant="muted" size="lg">
         <SectionContainer>
           <SectionHeader align="center">

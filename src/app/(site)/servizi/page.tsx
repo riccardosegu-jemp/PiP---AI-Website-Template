@@ -14,6 +14,16 @@ export const revalidate = 3600
 export default async function Servizi() {
   const servizi = await getServizi()
 
+  // n8n: PROMPT-18-BREADCRUMB — aggiorna url_sito con il dominio reale del cliente
+  const jsonLdBreadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.brandpmi.it" },
+      { "@type": "ListItem", "position": 2, "name": "Servizi" },
+    ],
+  }
+
   // n8n: PROMPT-18 — aggiorna url_sito con il dominio reale del cliente
   const jsonLdServizi = servizi.map((s) => ({
     "@context": "https://schema.org",
@@ -31,6 +41,10 @@ export default async function Servizi() {
   return (
     <>
       <h1 className="sr-only">Servizi</h1>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdServizi) }}
