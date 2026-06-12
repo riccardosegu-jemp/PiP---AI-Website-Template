@@ -63,7 +63,11 @@ export const SITE_SETTINGS_QUERY = `
     copyright,
     privacy_policy_url,
     cookie_policy_url,
-    certificazioni[] { _key, titolo, ente, dal }
+    certificazioni[] { _key, titolo, ente, dal },
+    colore_primario,
+    colore_secondario,
+    colore_accent,
+    font_principale
   }
 `
 

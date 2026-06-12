@@ -4,6 +4,7 @@ const siteSettings = {
   type: 'document',
   groups: [
     { name: 'brand', title: 'Brand' },
+    { name: 'aspetto', title: 'Aspetto' },
     { name: 'contatti', title: 'Contatti' },
     { name: 'legale', title: 'Dati legali' },
     { name: 'certificazioni', title: 'Certificazioni' },
@@ -31,6 +32,48 @@ const siteSettings = {
       type: 'text',
       rows: 3,
       group: 'brand',
+    },
+    // Aspetto
+    {
+      name: 'colore_primario',
+      title: 'Colore primario (navy)',
+      type: 'string',
+      group: 'aspetto',
+      description: 'Hex del colore principale, es. #1b3a5c',
+    },
+    {
+      name: 'colore_secondario',
+      title: 'Colore secondario (teal)',
+      type: 'string',
+      group: 'aspetto',
+      description: 'Hex del colore secondario/accent, es. #2a7f6f',
+    },
+    {
+      name: 'colore_accent',
+      title: 'Colore accent',
+      type: 'string',
+      group: 'aspetto',
+      description: 'Hex del colore accent, es. #e8a020',
+    },
+    {
+      name: 'font_principale',
+      title: 'Font principale',
+      type: 'string',
+      group: 'aspetto',
+      description: 'Nome esatto del font su Google Fonts',
+      options: {
+        list: [
+          { title: 'Inter (default)', value: 'Inter' },
+          { title: 'Montserrat', value: 'Montserrat' },
+          { title: 'Lato', value: 'Lato' },
+          { title: 'Roboto', value: 'Roboto' },
+          { title: 'Open Sans', value: 'Open Sans' },
+          { title: 'Raleway', value: 'Raleway' },
+          { title: 'Poppins', value: 'Poppins' },
+          { title: 'Nunito', value: 'Nunito' },
+          { title: 'Source Sans 3', value: 'Source Sans 3' },
+        ],
+      },
     },
     // Contatti
     { name: 'telefono', title: 'Telefono', type: 'string', group: 'contatti' },

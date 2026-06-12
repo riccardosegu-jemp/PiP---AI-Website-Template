@@ -62,6 +62,10 @@ export type SiteSettings = {
   privacy_policy_url: string | null
   cookie_policy_url: string | null
   certificazioni: Certificazione[] | null
+  colore_primario: string | null
+  colore_secondario: string | null
+  colore_accent: string | null
+  font_principale: string | null
 }
 
 export type ProcessoStep = {
