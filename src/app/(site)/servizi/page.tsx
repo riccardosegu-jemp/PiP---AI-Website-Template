@@ -14,8 +14,26 @@ export const revalidate = 3600
 export default async function Servizi() {
   const servizi = await getServizi()
 
+  // n8n: PROMPT-18 — aggiorna url_sito con il dominio reale del cliente
+  const jsonLdServizi = servizi.map((s) => ({
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": s.titolo,
+    "description": s.descrizione_completa ?? s.titolo,
+    "provider": {
+      "@type": "Organization",
+      "name": "BrandPMI",
+    },
+    "areaServed": "Brescia, Italia",
+    "url": `https://www.brandpmi.it/servizi${s.slug ? `#${s.slug}` : ""}`,
+  }))
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdServizi) }}
+      />
       <Section variant="muted" size="lg">
         <SectionContainer>
           <SectionHeader align="center">
