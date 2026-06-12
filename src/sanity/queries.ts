@@ -6,6 +6,7 @@ import type {
   Homepage,
   ChiSiamo,
   ContattiPage,
+  LandingProdotto,
 } from './types'
 
 const opts = { next: { revalidate: 3600 } }
@@ -162,4 +163,69 @@ export async function getChiSiamo(): Promise<ChiSiamo | null> {
 
 export async function getContattiPage(): Promise<ContattiPage | null> {
   return client.fetch<ContattiPage | null>(CONTATTI_PAGE_QUERY, {}, opts)
+}
+
+export const LANDING_PRODOTTO_QUERY = `
+  *[_type == "landingProdotto"][0] {
+    nome_prodotto,
+    "logo_url": logo.asset->url,
+    "logo_alt": coalesce(logo.alt, ""),
+    navbar_links[] { _key, label, href },
+    navbar_cta_testo,
+    navbar_cta_href,
+    hero_tagline,
+    "hero_immagine_url": hero_immagine.asset->url,
+    "hero_immagine_alt": coalesce(hero_immagine.alt, ""),
+    hero_metriche[] { _key, valore, label },
+    hero_cta_primaria_testo,
+    hero_cta_primaria_href,
+    hero_cta_secondaria_testo,
+    hero_cta_secondaria_href,
+    claim_label,
+    claim_testo_prima,
+    claim_parola_evidenziata,
+    claim_attribuzione,
+    benefici_tagline,
+    benefici_titolo,
+    benefici_descrizione,
+    benefici[] { _key, numero, titolo, descrizione },
+    specifiche_tagline,
+    specifiche_titolo,
+    specifiche_descrizione,
+    "specifiche_immagine_url": specifiche_immagine.asset->url,
+    "specifiche_immagine_alt": coalesce(specifiche_immagine.alt, ""),
+    specifiche_voci[] { _key, nome, valore },
+    specifiche_cta_pdf_testo,
+    "specifiche_cta_pdf_url": specifiche_cta_pdf_file.asset->url,
+    faq_tagline,
+    faq_titolo,
+    faq_descrizione,
+    faq[] { _key, domanda, risposta },
+    social_label_loghi,
+    "social_loghi": social_loghi[] { _key, "url": asset->url, "alt": coalesce(alt, "") },
+    recensione_stelle,
+    recensione_testo,
+    recensione_nome,
+    recensione_ruolo,
+    "recensione_foto_url": recensione_foto.asset->url,
+    "recensione_foto_alt": coalesce(recensione_foto.alt, ""),
+    cta_label,
+    cta_headline,
+    cta_sottotitolo,
+    cta_prezzo,
+    cta_testo,
+    cta_href,
+    sticky_secondario_testo,
+    sticky_secondario_href,
+    sticky_primario_testo,
+    sticky_primario_href,
+    footer_nome_azienda,
+    footer_piva,
+    footer_copyright,
+    footer_links[] { _key, label, href }
+  }
+`
+
+export async function getLandingProdotto(): Promise<LandingProdotto | null> {
+  return client.fetch<LandingProdotto | null>(LANDING_PRODOTTO_QUERY, {}, opts)
 }

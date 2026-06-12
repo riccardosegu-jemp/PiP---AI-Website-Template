@@ -180,3 +180,93 @@ export type ContattiPage = {
   servizi_opzioni: string[] | null
   urgenza_opzioni: string[] | null
 }
+
+export type LinkItem = {
+  _key: string
+  label: string | null
+  href: string | null
+}
+
+export type HeroMetrica = {
+  _key: string
+  valore: string | null
+  label: string | null
+}
+
+export type Beneficio = {
+  _key: string
+  numero: number | null
+  titolo: string | null
+  descrizione: string | null
+}
+
+export type SpecVoce = {
+  _key: string
+  nome: string | null
+  valore: string | null
+}
+
+export type FaqItem = {
+  _key: string
+  domanda: string | null
+  risposta: string | null
+}
+
+export type LandingProdotto = {
+  nome_prodotto: string | null
+  logo_url: string | null
+  logo_alt: string
+  navbar_links: LinkItem[] | null
+  navbar_cta_testo: string | null
+  navbar_cta_href: string | null
+  hero_tagline: string | null
+  hero_immagine_url: string | null
+  hero_immagine_alt: string
+  hero_metriche: HeroMetrica[] | null
+  hero_cta_primaria_testo: string | null
+  hero_cta_primaria_href: string | null
+  hero_cta_secondaria_testo: string | null
+  hero_cta_secondaria_href: string | null
+  claim_label: string | null
+  claim_testo_prima: string | null
+  claim_parola_evidenziata: string | null
+  claim_attribuzione: string | null
+  benefici_tagline: string | null
+  benefici_titolo: string | null
+  benefici_descrizione: string | null
+  benefici: Beneficio[] | null
+  specifiche_tagline: string | null
+  specifiche_titolo: string | null
+  specifiche_descrizione: string | null
+  specifiche_immagine_url: string | null
+  specifiche_immagine_alt: string
+  specifiche_voci: SpecVoce[] | null
+  specifiche_cta_pdf_testo: string | null
+  specifiche_cta_pdf_url: string | null
+  faq_tagline: string | null
+  faq_titolo: string | null
+  faq_descrizione: string | null
+  faq: FaqItem[] | null
+  social_label_loghi: string | null
+  social_loghi: Logo[] | null
+  recensione_stelle: number | null
+  recensione_testo: string | null
+  recensione_nome: string | null
+  recensione_ruolo: string | null
+  recensione_foto_url: string | null
+  recensione_foto_alt: string
+  cta_label: string | null
+  cta_headline: string | null
+  cta_sottotitolo: string | null
+  cta_prezzo: string | null
+  cta_testo: string | null
+  cta_href: string | null
+  sticky_secondario_testo: string | null
+  sticky_secondario_href: string | null
+  sticky_primario_testo: string | null
+  sticky_primario_href: string | null
+  footer_nome_azienda: string | null
+  footer_piva: string | null
+  footer_copyright: string | null
+  footer_links: LinkItem[] | null
+}

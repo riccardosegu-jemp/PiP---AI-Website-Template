@@ -16,9 +16,12 @@ export async function POST(req: NextRequest) {
   }
 
   // Revalida le pagine che usano dati Sanity
+  revalidatePath("/")
   revalidatePath("/servizi")
   revalidatePath("/case-study")
-  revalidatePath("/")
+  revalidatePath("/chi-siamo")
+  revalidatePath("/contatti")
+  revalidatePath("/lp/lancio-prodotto")
 
   return NextResponse.json({ revalidated: true, timestamp: new Date().toISOString() })
 }

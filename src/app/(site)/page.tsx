@@ -87,7 +87,7 @@ export default async function Home() {
         <section className="py-8 border-y border-[var(--brand-border)] bg-white">
           <div className="max-w-7xl mx-auto px-6">
             {home.trustbar_titolo && (
-              <p className="text-xs text-center text-gray-400 uppercase tracking-widest mb-6">{home.trustbar_titolo}</p>
+              <p className="text-xs text-center text-gray-300 uppercase tracking-widest mb-6">{home.trustbar_titolo}</p>
             )}
             <div className="flex items-center justify-center gap-8 md:gap-12 flex-wrap">
               {home.loghi_clienti.map((l) =>
@@ -235,7 +235,7 @@ export default async function Home() {
                   <CardContent className="p-6 text-center">
                     <p className="text-5xl font-bold text-[var(--brand-navy)]">{s.valore}</p>
                     <p className="text-sm text-gray-500 mt-1">{s.label}</p>
-                    {s.descrizione && <p className="text-xs text-gray-400 mt-1">{s.descrizione}</p>}
+                    {s.descrizione && <p className="text-xs text-gray-300 mt-1">{s.descrizione}</p>}
                   </CardContent>
                 </Card>
               ))}

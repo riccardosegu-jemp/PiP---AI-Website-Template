@@ -3,7 +3,7 @@ import { structureTool } from 'sanity/structure'
 import { schemaTypes } from './src/sanity/schemas'
 
 // Tipi singleton: una sola istanza. Creazione/eliminazione disabilitate dallo Studio.
-const SINGLETON_TYPES = ['siteSettings', 'homepage', 'chiSiamo', 'contattiPage']
+const SINGLETON_TYPES = ['siteSettings', 'homepage', 'chiSiamo', 'contattiPage', 'landingProdotto']
 
 export default defineConfig({
   name: 'default',
@@ -21,6 +21,7 @@ export default defineConfig({
             S.documentTypeListItem('homepage').title('Homepage'),
             S.documentTypeListItem('chiSiamo').title('Chi siamo'),
             S.documentTypeListItem('contattiPage').title('Pagina contatti'),
+            S.documentTypeListItem('landingProdotto').title('Landing — Lancio prodotto'),
             S.divider(),
             S.documentTypeListItem('servizio').title('Servizi'),
             S.documentTypeListItem('caseStudy').title('Case Study'),

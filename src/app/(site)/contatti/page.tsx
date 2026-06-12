@@ -45,22 +45,22 @@ export default async function Contatti() {
                   <h3 className="font-semibold text-[var(--brand-navy)]">Informazioni azienda</h3>
                   <ul className="flex flex-col gap-3 text-sm">
                     {settings?.ragione_sociale && (
-                      <li><span className="text-gray-400 text-xs uppercase tracking-wide block mb-0.5">Ragione sociale</span><span className="text-gray-700">{settings.ragione_sociale}</span></li>
+                      <li><span className="text-gray-300 text-xs uppercase tracking-wide block mb-0.5">Ragione sociale</span><span className="text-gray-700">{settings.ragione_sociale}</span></li>
                     )}
                     {indirizzo && (
-                      <li><span className="text-gray-400 text-xs uppercase tracking-wide block mb-0.5">Sede operativa</span><span className="text-gray-700">{indirizzo}</span></li>
+                      <li><span className="text-gray-300 text-xs uppercase tracking-wide block mb-0.5">Sede operativa</span><span className="text-gray-700">{indirizzo}</span></li>
                     )}
                     {settings?.telefono && (
-                      <li><span className="text-gray-400 text-xs uppercase tracking-wide block mb-0.5">Telefono</span><span className="text-gray-700">{settings.telefono}</span></li>
+                      <li><span className="text-gray-300 text-xs uppercase tracking-wide block mb-0.5">Telefono</span><span className="text-gray-700">{settings.telefono}</span></li>
                     )}
                     {settings?.email && (
-                      <li><span className="text-gray-400 text-xs uppercase tracking-wide block mb-0.5">Email</span><span className="text-gray-700">{settings.email}</span></li>
+                      <li><span className="text-gray-300 text-xs uppercase tracking-wide block mb-0.5">Email</span><span className="text-gray-700">{settings.email}</span></li>
                     )}
                     {settings?.orari && (
-                      <li><span className="text-gray-400 text-xs uppercase tracking-wide block mb-0.5">Orari</span><span className="text-gray-700">{settings.orari}</span></li>
+                      <li><span className="text-gray-300 text-xs uppercase tracking-wide block mb-0.5">Orari</span><span className="text-gray-700">{settings.orari}</span></li>
                     )}
                     {(settings?.piva || settings?.rea) && (
-                      <li className="pt-2 border-t border-[var(--brand-border)]"><span className="text-gray-400 text-xs">{[settings?.piva, settings?.rea].filter(Boolean).join(" · ")}</span></li>
+                      <li className="pt-2 border-t border-[var(--brand-border)]"><span className="text-gray-300 text-xs">{[settings?.piva, settings?.rea].filter(Boolean).join(" · ")}</span></li>
                     )}
                   </ul>
                 </CardContent>

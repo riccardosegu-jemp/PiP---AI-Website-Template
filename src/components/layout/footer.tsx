@@ -103,7 +103,7 @@ export async function Footer() {
 
           {/* Colonna 2 — Navigazione */}
           <div>
-            <p className="font-semibold text-xs uppercase tracking-widest text-white/40 mb-4">
+            <p className="font-semibold text-xs uppercase tracking-widest text-white/60 mb-4">
               Navigazione
             </p>
             <ul className="flex flex-col gap-2">
@@ -123,7 +123,7 @@ export async function Footer() {
 
           {/* Colonna 3 — Servizi */}
           <div>
-            <p className="font-semibold text-xs uppercase tracking-widest text-white/40 mb-4">
+            <p className="font-semibold text-xs uppercase tracking-widest text-white/60 mb-4">
               Servizi
             </p>
             <ul className="flex flex-col gap-2">
@@ -143,7 +143,7 @@ export async function Footer() {
 
           {/* Colonna 4 — Orari e Sede */}
           <div>
-            <p className="font-semibold text-xs uppercase tracking-widest text-white/40 mb-4">
+            <p className="font-semibold text-xs uppercase tracking-widest text-white/60 mb-4">
               Orari e Sede
             </p>
             <div className="flex flex-col gap-3 text-sm">
@@ -177,14 +177,14 @@ export async function Footer() {
 
         {/* Bottom bar */}
         <div className="border-t border-white/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-white/40">
+          <p className="text-xs text-white/60">
             {copyright} &nbsp;·&nbsp; {piva} &nbsp;·&nbsp; {rea}
           </p>
           <div className="flex gap-6">
-            <a href={privacyUrl} target="_blank" rel="noopener noreferrer" className="text-xs text-white/40 hover:text-white transition-colors">
+            <a href={privacyUrl} target="_blank" rel="noopener noreferrer" className="text-xs text-white/60 hover:text-white transition-colors">
               Privacy Policy
             </a>
-            <a href={cookieUrl} target="_blank" rel="noopener noreferrer" className="text-xs text-white/40 hover:text-white transition-colors">
+            <a href={cookieUrl} target="_blank" rel="noopener noreferrer" className="text-xs text-white/60 hover:text-white transition-colors">
               Cookie Policy
             </a>
           </div>
