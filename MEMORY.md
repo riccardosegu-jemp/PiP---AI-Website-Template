@@ -39,12 +39,36 @@ This file serves as the permanent memory for the development of this project. It
 - **Sanity images in Next**: aggiungere `cdn.sanity.io` a `next.config.ts` remotePatterns; URL via GROQ `immagine.asset->url`.
 
 ### Next Steps
-- [ ] Caricare gli asset immagine reali dallo Studio (logo, hero, foto team, loghi clienti, sede)
+- [x] Caricare gli asset immagine reali dallo Studio (logo, hero, foto team, loghi clienti, sede) — **15 immagini AI-generate via Sanity, pubblicate**
+- [ ] Aggiungere foto team (Giorgio, Alessia, Marco) manualmente via Studio (campo annidato, tool.generate_image non supporta)
 - [ ] Rate limiting su /api/contact (richiede store esterno: Vercel KV / Upstash)
 - [ ] Ruotare il secret del webhook revalidate (a1-revalidate, esposto in chat)
 - [ ] Verificare env vars Sanity/Brevo su Vercel (NEXT_PUBLIC_SANITY_*, BREVO_*)
 - [ ] Eventuale ripristino dei servizi originali (CNC/Stampaggio) rimossi durante i test Studio
 - [ ] Aggiungere `CONTACT_TO_EMAIL` se in futuro mittente Brevo e destinatario devono essere separati
+
+---
+
+## 2026-06-12 - W5 sub-session: AI-generated mockup images
+
+### What was done
+- Generated 15 AI mockup images via Sanity `generate_image` tool and published all to CDN
+- All pages now render with images from Sanity: homepage (hero + 4 client logos), chi-siamo (hero + sede), landing (hero + specifiche + 4 logos + review photo), siteSettings (logo)
+- Images live on Sanity CDN (`cdn.sanity.io`) — zero repo bloat
+
+### Completed images
+✅ siteSettings: logo (BrandPMI branding)  
+✅ homepage: hero + loghi_clienti (4)  
+✅ chi-siamo: hero + sede  
+✅ landing-prodotto: hero + specifiche + social_loghi (4) + recensione_foto  
+
+### Known limitation
+⚠️ Team photos (Giorgio, Alessia, Marco) — `generate_image` doesn't support nested object paths (`team[].foto`). Must add manually in Studio. Takes 2 min per photo: open chi-siamo → Le persone → foto field → upload/generate.
+
+### Key insight: Headless CMS workflow
+- **Before**: Modify code → commit → Vercel rebuild
+- **Now**: Modify content in Sanity Studio → save → webhook → Vercel revalidate (zero repo changes)
+- Images stored on Sanity CDN, not in git (no bloat). `remotePatterns: [{hostname: 'cdn.sanity.io'}]` needed in next.config.ts to optimize via Image component.
 
 ---
 

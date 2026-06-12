@@ -112,7 +112,7 @@ export const CHI_SIAMO_QUERY = `
     valori_tagline,
     valori_titolo,
     valori_descrizione,
-    valori[] { _key, titolo, descrizione },
+    valori[] { _key, numero, titolo, descrizione },
     cert_tagline,
     cert_titolo,
     team_tagline,

@@ -59,7 +59,7 @@ export async function Footer() {
                   alt={logoAlt}
                   width={32}
                   height={32}
-                  className="brightness-0 invert shrink-0"
+                  className="shrink-0"
                 />
               )}
               <span className="font-bold text-white text-lg leading-none">{nome}</span>

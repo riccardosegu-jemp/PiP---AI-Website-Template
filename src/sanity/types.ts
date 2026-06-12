@@ -131,6 +131,7 @@ export type TimelineItem = {
 
 export type Valore = {
   _key: string
+  numero: number | null
   titolo: string | null
   descrizione: string | null
 }

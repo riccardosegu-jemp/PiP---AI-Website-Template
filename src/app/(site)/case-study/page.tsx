@@ -1,6 +1,4 @@
 import Image from "next/image"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
 import {
   Section,
   SectionContainer,
@@ -10,7 +8,7 @@ import {
   SectionDescription,
   SectionGrid,
 } from "@/components/ui/section"
-import { Card, CardContent, CardFooter } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { getCaseStudy } from "@/sanity/queries"
 
 export const revalidate = 3600
@@ -77,11 +75,6 @@ export default async function CaseStudy() {
                     </div>
                   )}
                   <p className="text-sm text-gray-600 leading-relaxed">{primo.descrizione_completa}</p>
-                  {primo.slug && (
-                    <div>
-                      <Button render={<Link href={`/case-study#${primo.slug}`} />}>Leggi il caso completo →</Button>
-                    </div>
-                  )}
                 </CardContent>
               </div>
             </Card>
@@ -121,11 +114,6 @@ export default async function CaseStudy() {
                     )}
                     <p className="text-sm text-gray-600 leading-relaxed">{c.descrizione_completa}</p>
                   </CardContent>
-                  {c.slug && (
-                    <CardFooter>
-                      <Button variant="link" render={<Link href={`/case-study#${c.slug}`} />}>Leggi il caso →</Button>
-                    </CardFooter>
-                  )}
                 </Card>
               ))}
             </SectionGrid>

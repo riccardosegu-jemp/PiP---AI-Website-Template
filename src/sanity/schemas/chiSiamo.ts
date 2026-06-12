@@ -60,10 +60,11 @@ const chiSiamo = {
         {
           type: 'object',
           fields: [
+            { name: 'numero', title: 'Numero', type: 'number' },
             { name: 'titolo', title: 'Titolo', type: 'string' },
             { name: 'descrizione', title: 'Descrizione', type: 'text', rows: 3 },
           ],
-          preview: { select: { title: 'titolo' } },
+          preview: { select: { title: 'titolo', subtitle: 'numero' } },
         },
       ],
     },

@@ -87,7 +87,9 @@ export default async function ChiSiamo() {
             {(cs?.valori ?? []).map((v) => (
               <Card key={v._key}>
                 <CardContent className="p-6 flex flex-col gap-3">
-                  <span className="w-8 h-8 rounded-full bg-[var(--brand-navy)] text-white flex items-center justify-center text-sm font-bold">✓</span>
+                  {v.numero && (
+                    <span className="w-8 h-8 rounded-full bg-[var(--brand-navy)] text-white flex items-center justify-center text-sm font-bold">{v.numero}</span>
+                  )}
                   <h3 className="font-semibold text-[var(--brand-navy)]">{v.titolo}</h3>
                   <p className="text-sm text-gray-500 leading-relaxed">{v.descrizione}</p>
                 </CardContent>
