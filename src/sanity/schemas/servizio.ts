@@ -17,6 +17,28 @@ const servizio = {
       validation: (Rule: { required: () => unknown }) => Rule.required(),
     },
     {
+      name: 'icona',
+      title: 'Icona (anteprima homepage)',
+      type: 'string',
+      description: 'Icona mostrata nella card della homepage',
+      options: {
+        list: [
+          { title: 'Impostazioni', value: 'settings2' },
+          { title: 'Livelli', value: 'layers' },
+          { title: 'Scudo', value: 'shield' },
+          { title: 'Checklist', value: 'clipboard-check' },
+          { title: 'Trapano', value: 'drill' },
+          { title: 'Pacco', value: 'package-check' },
+        ],
+      },
+    },
+    {
+      name: 'descrizione_breve',
+      title: 'Descrizione breve (anteprima homepage)',
+      type: 'text',
+      rows: 2,
+    },
+    {
       name: 'descrizione_completa',
       title: 'Descrizione completa',
       type: 'text',
@@ -33,13 +55,7 @@ const servizio = {
       title: 'Immagine',
       type: 'image',
       options: { hotspot: true },
-      fields: [
-        {
-          name: 'alt',
-          title: 'Testo alternativo',
-          type: 'string',
-        },
-      ],
+      fields: [{ name: 'alt', title: 'Testo alternativo', type: 'string' }],
     },
     {
       name: 'ordine',
