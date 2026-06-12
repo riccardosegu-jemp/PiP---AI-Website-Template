@@ -15,13 +15,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Secret non valido" }, { status: 401 })
   }
 
-  // Revalida le pagine che usano dati Sanity
-  revalidatePath("/")
-  revalidatePath("/servizi")
-  revalidatePath("/case-study")
-  revalidatePath("/chi-siamo")
-  revalidatePath("/contatti")
-  revalidatePath("/lp/lancio-prodotto")
+  // "layout" invalida il layout condiviso + tutte le pagine figlie in un colpo solo.
+  // Copre: navbar, footer, siteSettings (colori, font, logo) e tutte le route del sito.
+  revalidatePath("/", "layout")
 
   return NextResponse.json({ revalidated: true, timestamp: new Date().toISOString() })
 }
