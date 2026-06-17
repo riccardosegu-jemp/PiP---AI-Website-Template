@@ -18,6 +18,7 @@ const contattiPage = {
       type: 'array',
       of: [{ type: 'string' }],
     },
+    { name: 'seo', title: 'SEO', type: 'seo' },
   ],
   preview: {
     prepare: () => ({ title: 'Pagina contatti' }),

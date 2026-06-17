@@ -17,9 +17,17 @@ import {
   CardContent,
 } from "@/components/ui/card"
 import { LpFaq } from "@/components/lp-faq"
+import type { Metadata } from "next"
 import { getLandingProdotto, getSiteSettings } from "@/sanity/queries"
+import { buildMetadata, SEO_DEFAULTS } from "@/lib/seo"
 
 export const revalidate = 3600
+
+// Title/description per Google: dai campi SEO di Sanity, con fallback ai default.
+export async function generateMetadata(): Promise<Metadata> {
+  const lp = await getLandingProdotto()
+  return buildMetadata(lp?.seo, SEO_DEFAULTS.landing)
+}
 
 const HERO_IMG_FALLBACK = "/images/lp/rapid5-componente.jpg"
 const SPEC_IMG_FALLBACK = "/images/lp/rapid5-cnc.jpg"

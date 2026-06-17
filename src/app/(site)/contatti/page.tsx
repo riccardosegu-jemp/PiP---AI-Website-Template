@@ -8,9 +8,17 @@ import {
 } from "@/components/ui/section"
 import { Card, CardContent } from "@/components/ui/card"
 import { ContactFormFull } from "@/components/contact-form-full"
+import type { Metadata } from "next"
 import { getContattiPage, getSiteSettings } from "@/sanity/queries"
+import { buildMetadata, SEO_DEFAULTS } from "@/lib/seo"
 
 export const revalidate = 3600
+
+// Title/description per Google: dai campi SEO di Sanity, con fallback ai default.
+export async function generateMetadata(): Promise<Metadata> {
+  const page = await getContattiPage()
+  return buildMetadata(page?.seo, SEO_DEFAULTS.contatti)
+}
 
 export default async function Contatti() {
   const [page, settings] = await Promise.all([getContattiPage(), getSiteSettings()])

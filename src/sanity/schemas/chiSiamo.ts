@@ -16,6 +16,7 @@ const chiSiamo = {
     { name: 'team', title: 'Team' },
     { name: 'sede', title: 'Sede' },
     { name: 'contatti', title: 'Contatti' },
+    { name: 'seo', title: 'SEO' },
   ],
   fields: [
     // HERO
@@ -109,6 +110,8 @@ const chiSiamo = {
     { name: 'contatti_tagline', title: 'Tagline', type: 'string', group: 'contatti' },
     { name: 'contatti_titolo', title: 'Titolo', type: 'string', group: 'contatti' },
     { name: 'contatti_descrizione', title: 'Descrizione', type: 'text', rows: 2, group: 'contatti' },
+    // SEO
+    { name: 'seo', title: 'SEO', type: 'seo', group: 'seo' },
   ],
   preview: {
     prepare: () => ({ title: 'Chi siamo' }),

@@ -7,8 +7,22 @@ import type {
   ChiSiamo,
   ContattiPage,
   LandingProdotto,
+  SeoDoc,
 } from './types'
 
+/**
+ * queries.ts — punto unico di accesso ai dati Sanity.
+ * Per ogni contenuto c'è una coppia: una query GROQ (es. SERVIZI_QUERY) che
+ * definisce quali campi leggere, e una funzione async tipizzata (es. getServizi)
+ * che la esegue. Le pagine importano solo le funzioni get*, mai il client diretto.
+ *
+ * Convenzioni GROQ usate qui:
+ *   "campo_url": immagine.asset->url   → dereferenzia l'asset e ne estrae l'URL
+ *   coalesce(campo, "")                → fallback se il campo è vuoto/null
+ */
+
+// ISR: i dati vengono ri-letti da Sanity al massimo ogni 3600s (1h).
+// L'aggiornamento immediato avviene via webhook (vedi api/revalidate).
 const opts = { next: { revalidate: 3600 } }
 
 export const SERVIZI_QUERY = `
@@ -100,7 +114,8 @@ export const HOMEPAGE_QUERY = `
     stats[] { _key, valore, label, descrizione },
     contatti_tagline,
     contatti_titolo,
-    contatti_descrizione
+    contatti_descrizione,
+    seo { meta_title, meta_description }
   }
 `
 
@@ -131,7 +146,8 @@ export const CHI_SIAMO_QUERY = `
     "sede_immagine_alt": coalesce(sede_immagine.alt, ""),
     contatti_tagline,
     contatti_titolo,
-    contatti_descrizione
+    contatti_descrizione,
+    seo { meta_title, meta_description }
   }
 `
 
@@ -141,7 +157,8 @@ export const CONTATTI_PAGE_QUERY = `
     hero_titolo,
     hero_descrizione,
     servizi_opzioni,
-    urgenza_opzioni
+    urgenza_opzioni,
+    seo { meta_title, meta_description }
   }
 `
 
@@ -167,6 +184,24 @@ export async function getChiSiamo(): Promise<ChiSiamo | null> {
 
 export async function getContattiPage(): Promise<ContattiPage | null> {
   return client.fetch<ContattiPage | null>(CONTATTI_PAGE_QUERY, {}, opts)
+}
+
+// Pagine /servizi e /case-study: singleton che contengono solo i metadati SEO
+// (le card vengono dai documenti servizio/caseStudy, vedi query sopra).
+export const SERVIZI_PAGE_QUERY = `
+  *[_type == "serviziPage"][0] { seo { meta_title, meta_description } }
+`
+
+export const CASE_STUDY_PAGE_QUERY = `
+  *[_type == "caseStudyPage"][0] { seo { meta_title, meta_description } }
+`
+
+export async function getServiziPage(): Promise<SeoDoc | null> {
+  return client.fetch<SeoDoc | null>(SERVIZI_PAGE_QUERY, {}, opts)
+}
+
+export async function getCaseStudyPage(): Promise<SeoDoc | null> {
+  return client.fetch<SeoDoc | null>(CASE_STUDY_PAGE_QUERY, {}, opts)
 }
 
 export const LANDING_PRODOTTO_QUERY = `
@@ -226,7 +261,8 @@ export const LANDING_PRODOTTO_QUERY = `
     footer_nome_azienda,
     footer_piva,
     footer_copyright,
-    footer_links[] { _key, label, href }
+    footer_links[] { _key, label, href },
+    seo { meta_title, meta_description }
   }
 `
 

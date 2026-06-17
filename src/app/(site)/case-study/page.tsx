@@ -9,9 +9,17 @@ import {
   SectionGrid,
 } from "@/components/ui/section"
 import { Card, CardContent } from "@/components/ui/card"
-import { getCaseStudy } from "@/sanity/queries"
+import type { Metadata } from "next"
+import { getCaseStudy, getCaseStudyPage } from "@/sanity/queries"
+import { buildMetadata, SEO_DEFAULTS } from "@/lib/seo"
 
 export const revalidate = 3600
+
+// Title/description per Google: dai campi SEO di Sanity (singleton caseStudyPage), con fallback.
+export async function generateMetadata(): Promise<Metadata> {
+  const page = await getCaseStudyPage()
+  return buildMetadata(page?.seo, SEO_DEFAULTS.caseStudy)
+}
 
 export default async function CaseStudy() {
   const casi = await getCaseStudy()

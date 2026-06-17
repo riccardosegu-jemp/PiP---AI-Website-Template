@@ -18,6 +18,7 @@ const homepage = {
     { name: 'casi', title: 'Case study' },
     { name: 'perche', title: 'Perché sceglierci' },
     { name: 'contatti', title: 'Contatti' },
+    { name: 'seo', title: 'SEO' },
   ],
   fields: [
     // HERO
@@ -140,6 +141,8 @@ const homepage = {
     { name: 'contatti_tagline', title: 'Tagline', type: 'string', group: 'contatti' },
     { name: 'contatti_titolo', title: 'Titolo', type: 'string', group: 'contatti' },
     { name: 'contatti_descrizione', title: 'Descrizione', type: 'text', rows: 2, group: 'contatti' },
+    // SEO
+    { name: 'seo', title: 'SEO', type: 'seo', group: 'seo' },
   ],
   preview: {
     prepare: () => ({ title: 'Homepage' }),

@@ -32,6 +32,7 @@ const landingProdotto = {
     { name: 'social', title: 'Social proof' },
     { name: 'cta', title: 'CTA finale + sticky' },
     { name: 'footer', title: 'Footer' },
+    { name: 'seo', title: 'SEO' },
   ],
   fields: [
     // GENERALE / NAVBAR
@@ -168,6 +169,8 @@ const landingProdotto = {
     { name: 'footer_piva', title: 'P.IVA', type: 'string', group: 'footer' },
     { name: 'footer_copyright', title: 'Copyright', type: 'string', group: 'footer' },
     { ...linkArray, name: 'footer_links', title: 'Link footer', group: 'footer' },
+    // SEO
+    { name: 'seo', title: 'SEO', type: 'seo', group: 'seo' },
   ],
   preview: {
     prepare: () => ({ title: 'Landing — Lancio prodotto' }),

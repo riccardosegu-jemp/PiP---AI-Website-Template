@@ -10,9 +10,17 @@ import {
 } from "@/components/ui/section"
 import { Card, CardContent } from "@/components/ui/card"
 import { ContactFormPreview } from "@/components/contact-form-preview"
+import type { Metadata } from "next"
 import { getChiSiamo, getSiteSettings } from "@/sanity/queries"
+import { buildMetadata, SEO_DEFAULTS } from "@/lib/seo"
 
 export const revalidate = 3600
+
+// Title/description per Google: dai campi SEO di Sanity, con fallback ai default.
+export async function generateMetadata(): Promise<Metadata> {
+  const cs = await getChiSiamo()
+  return buildMetadata(cs?.seo, SEO_DEFAULTS.chiSiamo)
+}
 
 export default async function ChiSiamo() {
   const [cs, settings] = await Promise.all([getChiSiamo(), getSiteSettings()])

@@ -96,6 +96,17 @@ export type Logo = {
   alt: string
 }
 
+// SEO: campi opzionali per title/description. Se null, le pagine usano i default
+// di src/lib/seo.ts. SeoDoc è il wrapper per i singleton serviziPage/caseStudyPage.
+export type Seo = {
+  meta_title: string | null
+  meta_description: string | null
+}
+
+export type SeoDoc = {
+  seo: Seo | null
+}
+
 export type Homepage = {
   hero_headline: string | null
   hero_sottotitolo: string | null
@@ -125,6 +136,7 @@ export type Homepage = {
   contatti_tagline: string | null
   contatti_titolo: string | null
   contatti_descrizione: string | null
+  seo: Seo | null
 }
 
 export type TimelineItem = {
@@ -176,6 +188,7 @@ export type ChiSiamo = {
   contatti_tagline: string | null
   contatti_titolo: string | null
   contatti_descrizione: string | null
+  seo: Seo | null
 }
 
 export type ContattiPage = {
@@ -184,6 +197,7 @@ export type ContattiPage = {
   hero_descrizione: string | null
   servizi_opzioni: string[] | null
   urgenza_opzioni: string[] | null
+  seo: Seo | null
 }
 
 export type LinkItem = {
@@ -274,4 +288,5 @@ export type LandingProdotto = {
   footer_piva: string | null
   footer_copyright: string | null
   footer_links: LinkItem[] | null
+  seo: Seo | null
 }

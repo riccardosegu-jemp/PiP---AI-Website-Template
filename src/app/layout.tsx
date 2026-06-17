@@ -3,6 +3,7 @@ import { Geist_Mono } from "next/font/google"
 import "./globals.css"
 import Script from "next/script"
 import { getSiteSettings } from "@/sanity/queries"
+import { SEO_DEFAULTS } from "@/lib/seo"
 
 // n8n: PROMPT-17 — aggiorna url_sito, coordinate_gps e logo_url con i dati reali del cliente
 const jsonLd = {
@@ -39,9 +40,14 @@ const GFONTS_SLUG: Record<string, string> = {
   "Source Sans 3": "Source+Sans+3:wght@400;600;700",
 }
 
+// Metadata di base (default per le rotte senza generateMetadata, es. /studio).
+// Le singole pagine sovrascrivono title/description via generateMetadata().
+// metadataBase serve a Next.js per costruire gli URL assoluti di Open Graph.
 export const metadata: Metadata = {
-  title: "PIP Template",
-  description: "AI Website Template — JEMP",
+  // n8n: PROMPT-SEO — sostituire con il dominio reale del cliente
+  metadataBase: new URL("https://www.brandpmi.it"),
+  title: { default: SEO_DEFAULTS.home.title, template: "%s" },
+  description: SEO_DEFAULTS.home.description,
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

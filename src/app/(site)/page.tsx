@@ -21,11 +21,24 @@ import {
   CardFooter,
   CardContent,
 } from "@/components/ui/card"
+import type { Metadata } from "next"
 import { getHomepage, getServizi, getCaseStudy, getSiteSettings } from "@/sanity/queries"
+import { buildMetadata, SEO_DEFAULTS } from "@/lib/seo"
 
 export const revalidate = 3600
 
-// Mappa id-icona → componente lucide (le icone non sono serializzabili da Sanity).
+// Title/description per Google: dai campi SEO di Sanity, con fallback ai default.
+export async function generateMetadata(): Promise<Metadata> {
+  const home = await getHomepage()
+  return buildMetadata(home?.seo, SEO_DEFAULTS.home)
+}
+
+// Mappa id-icona (stringa) → componente lucide.
+// Sanity può salvare solo stringhe, non componenti React: quindi nel CMS si sceglie
+// un id (es. "shield") da una lista, e qui lo traduciamo nell'icona corrispondente.
+// Tre mappe separate perché le tre sezioni usano dimensioni diverse (w-6 / w-7 / w-5).
+// Gli id validi sono definiti nelle "options.list" dei rispettivi schema Sanity
+// (servizio.ts per ICONS, homepage.ts per PROCESSO_ICONS e FEATURE_ICONS).
 const ICONS: Record<string, React.ReactNode> = {
   "settings2": <Settings2 className="w-6 h-6" />,
   "layers": <Layers className="w-6 h-6" />,
