@@ -262,6 +262,10 @@ export const LANDING_PRODOTTO_QUERY = `
     footer_piva,
     footer_copyright,
     footer_links[] { _key, label, href },
+    video {
+      url, titolo, descrizione, data_caricamento,
+      "thumbnail_url": thumbnail.asset->url
+    },
     seo { meta_title, meta_description }
   }
 `

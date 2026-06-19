@@ -17,6 +17,7 @@ import {
   CardContent,
 } from "@/components/ui/card"
 import { LpFaq } from "@/components/lp-faq"
+import { LpHeroMedia } from "@/components/lp-hero-media"
 import type { Metadata } from "next"
 import { getLandingProdotto, getSiteSettings } from "@/sanity/queries"
 import { buildMetadata, SEO_DEFAULTS } from "@/lib/seo"
@@ -46,8 +47,74 @@ export default async function LandingPage() {
   const faqEmail = settings?.email ?? "info@brandpmi.it"
   const stelle = Math.max(0, Math.min(5, lp?.recensione_stelle ?? 5))
 
+  // ── Schema markup JSON-LD (ognuno generato SOLO se ci sono i dati) ──
+  // n8n: PROMPT-SEO — sostituire il dominio con quello reale del cliente
+  const LP_URL = "https://www.brandpmi.it/lp/lancio-prodotto"
+  const metaTitle = lp?.seo?.meta_title?.trim() || SEO_DEFAULTS.landing.title
+  const metaDesc = lp?.seo?.meta_description?.trim() || SEO_DEFAULTS.landing.description
+
+  const schemas: Record<string, unknown>[] = [
+    { "@context": "https://schema.org", "@type": "WebPage", name: metaTitle, description: metaDesc, url: LP_URL },
+  ]
+
+  // FAQPage — solo se ci sono domande (utile per i rich result e per la GEO/AI)
+  if (lp?.faq && lp.faq.length > 0) {
+    schemas.push({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: lp.faq.map((f) => ({
+        "@type": "Question",
+        name: f.domanda,
+        acceptedAnswer: { "@type": "Answer", text: f.risposta },
+      })),
+    })
+  }
+
+  // Review + Person — solo se c'è un testimonial
+  if (lp?.recensione_testo) {
+    schemas.push({
+      "@context": "https://schema.org",
+      "@type": "Review",
+      reviewBody: lp.recensione_testo,
+      author: { "@type": "Person", name: lp.recensione_nome ?? undefined, jobTitle: lp.recensione_ruolo ?? undefined },
+      reviewRating: { "@type": "Rating", ratingValue: stelle, bestRating: 5 },
+      itemReviewed: { "@type": "Product", name: nome },
+    })
+  }
+
+  // Offer — solo se cta_prezzo contiene un numero (formato IT: '.' migliaia, ',' decimali)
+  const rawPrezzo = lp?.cta_prezzo?.match(/\d[\d.,]*/)?.[0]
+  const price = rawPrezzo
+    ? (rawPrezzo.includes(",") ? rawPrezzo.replace(/\./g, "").replace(",", ".") : rawPrezzo.replace(/\./g, ""))
+    : null
+  if (price && !Number.isNaN(Number(price))) {
+    schemas.push({
+      "@context": "https://schema.org",
+      "@type": "Offer",
+      name: lp?.cta_headline ?? nome,
+      price,
+      priceCurrency: "EUR",
+      availability: "https://schema.org/InStock",
+      url: LP_URL,
+    })
+  }
+
+  // VideoObject — solo se è stato caricato un video in Sanity (campo "Video" della landing)
+  if (lp?.video?.url) {
+    schemas.push({
+      "@context": "https://schema.org",
+      "@type": "VideoObject",
+      name: lp.video.titolo ?? nome,
+      description: lp.video.descrizione ?? metaDesc,
+      thumbnailUrl: lp.video.thumbnail_url ?? undefined,
+      uploadDate: lp.video.data_caricamento ?? undefined,
+      contentUrl: lp.video.url,
+    })
+  }
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemas) }} />
       {/* ── NAVBAR LP ── */}
       <header className="sticky top-0 z-50 bg-white border-b border-[var(--brand-border)]">
         <div className="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
@@ -96,9 +163,12 @@ export default async function LandingPage() {
                 )}
               </div>
             </div>
-            <div className="relative aspect-square rounded-2xl overflow-hidden bg-[var(--brand-surface)] border border-[var(--brand-border)]">
-              <Image src={heroImg} alt={lp?.hero_immagine_alt || "Componente di precisione"} fill className="object-contain p-8" priority sizes="(max-width: 768px) 100vw, 50vw" />
-            </div>
+            <LpHeroMedia
+              videoUrl={lp?.video?.url}
+              posterUrl={lp?.video?.thumbnail_url}
+              imageUrl={heroImg}
+              imageAlt={lp?.hero_immagine_alt || "Componente di precisione"}
+            />
           </div>
         </SectionContainer>
       </Section>

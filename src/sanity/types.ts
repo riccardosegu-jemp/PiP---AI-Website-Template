@@ -231,6 +231,14 @@ export type FaqItem = {
   risposta: string | null
 }
 
+export type LpVideo = {
+  url: string | null
+  titolo: string | null
+  descrizione: string | null
+  data_caricamento: string | null
+  thumbnail_url: string | null
+}
+
 export type LandingProdotto = {
   nome_prodotto: string | null
   logo_url: string | null
@@ -288,5 +296,6 @@ export type LandingProdotto = {
   footer_piva: string | null
   footer_copyright: string | null
   footer_links: LinkItem[] | null
+  video: LpVideo | null
   seo: Seo | null
 }

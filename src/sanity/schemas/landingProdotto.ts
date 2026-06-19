@@ -32,6 +32,7 @@ const landingProdotto = {
     { name: 'social', title: 'Social proof' },
     { name: 'cta', title: 'CTA finale + sticky' },
     { name: 'footer', title: 'Footer' },
+    { name: 'video', title: 'Video (opzionale)' },
     { name: 'seo', title: 'SEO' },
   ],
   fields: [
@@ -169,6 +170,21 @@ const landingProdotto = {
     { name: 'footer_piva', title: 'P.IVA', type: 'string', group: 'footer' },
     { name: 'footer_copyright', title: 'Copyright', type: 'string', group: 'footer' },
     { ...linkArray, name: 'footer_links', title: 'Link footer', group: 'footer' },
+    // VIDEO (opzionale) — se compilato, la pagina genera lo schema VideoObject
+    {
+      name: 'video',
+      title: 'Video (hero/demo)',
+      type: 'object',
+      group: 'video',
+      description: "Compila solo se c'è un video. Se vuoto, nessuno schema VideoObject viene generato.",
+      fields: [
+        { name: 'url', title: 'URL video (contentUrl o embed)', type: 'url' },
+        { name: 'titolo', title: 'Titolo', type: 'string' },
+        { name: 'descrizione', title: 'Descrizione', type: 'text', rows: 2 },
+        { name: 'data_caricamento', title: 'Data di caricamento', type: 'date' },
+        { ...imageField, name: 'thumbnail', title: 'Thumbnail' },
+      ],
+    },
     // SEO
     { name: 'seo', title: 'SEO', type: 'seo', group: 'seo' },
   ],

@@ -1,6 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { MobileMenu } from "@/components/layout/mobile-menu"
 import { getSiteSettings } from "@/sanity/queries"
 import { logo_src, logo_alt as logoAltDefault, nome_azienda as nomeDefault } from "@/lib/brand"
 
@@ -62,21 +63,8 @@ export async function Navbar() {
           </Button>
         </div>
 
-        {/* Hamburger mobile */}
-        <button
-          type="button"
-          aria-label="Apri menu"
-          className="md:hidden p-2 text-[var(--brand-navy)]"
-        >
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-            <path
-              d="M3 5h14M3 10h14M3 15h14"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            />
-          </svg>
-        </button>
+        {/* Menu mobile (hamburger + pannello a tendina) */}
+        <MobileMenu links={links} cta={cta} />
 
       </div>
     </header>
