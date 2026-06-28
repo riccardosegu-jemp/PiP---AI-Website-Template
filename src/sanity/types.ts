@@ -43,6 +43,7 @@ export type Certificazione = {
 
 export type SiteSettings = {
   nome_azienda: string
+  url_sito: string | null
   logo_url: string | null
   logo_alt: string
   footer_descrizione: string | null

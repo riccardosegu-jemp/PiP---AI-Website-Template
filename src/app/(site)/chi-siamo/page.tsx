@@ -12,7 +12,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { ContactFormPreview } from "@/components/contact-form-preview"
 import type { Metadata } from "next"
 import { getChiSiamo, getSiteSettings } from "@/sanity/queries"
-import { buildMetadata, SEO_DEFAULTS } from "@/lib/seo"
+import { buildMetadata, SEO_DEFAULTS, siteUrl } from "@/lib/seo"
 
 export const revalidate = 3600
 
@@ -29,13 +29,14 @@ export default async function ChiSiamo() {
   const sedeImg = cs?.sede_immagine_url ?? "/images/sede.jpg"
   const certificazioni = settings?.certificazioni ?? []
   const indirizzo = [settings?.indirizzo, settings?.citta].filter(Boolean).join(", ")
+  const base = siteUrl(settings?.url_sito)
 
-  // n8n: PROMPT-18-BREADCRUMB — aggiorna url_sito con il dominio reale del cliente
+  // Il dominio (Home) arriva da Sanity tramite `base`.
   const jsonLdBreadcrumb = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.brandpmi.it" },
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": base },
       { "@type": "ListItem", "position": 2, "name": "Chi Siamo" },
     ],
   }

@@ -8,8 +8,8 @@ import {
   SectionDescription,
 } from "@/components/ui/section"
 import type { Metadata } from "next"
-import { getServizi, getServiziPage } from "@/sanity/queries"
-import { buildMetadata, SEO_DEFAULTS } from "@/lib/seo"
+import { getServizi, getServiziPage, getSiteSettings } from "@/sanity/queries"
+import { buildMetadata, SEO_DEFAULTS, siteUrl } from "@/lib/seo"
 
 export const revalidate = 3600
 
@@ -20,19 +20,19 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Servizi() {
-  const servizi = await getServizi()
+  const [servizi, settings] = await Promise.all([getServizi(), getSiteSettings()])
+  const base = siteUrl(settings?.url_sito)
 
-  // n8n: PROMPT-18-BREADCRUMB — aggiorna url_sito con il dominio reale del cliente
+  // Il dominio (Home / url) arriva da Sanity tramite `base`.
   const jsonLdBreadcrumb = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.brandpmi.it" },
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": base },
       { "@type": "ListItem", "position": 2, "name": "Servizi" },
     ],
   }
 
-  // n8n: PROMPT-18 — aggiorna url_sito con il dominio reale del cliente
   const jsonLdServizi = servizi.map((s) => ({
     "@context": "https://schema.org",
     "@type": "Service",
@@ -43,7 +43,7 @@ export default async function Servizi() {
       "name": "BrandPMI",
     },
     "areaServed": "Brescia, Italia",
-    "url": `https://www.brandpmi.it/servizi${s.slug ? `#${s.slug}` : ""}`,
+    "url": `${base}/servizi${s.slug ? `#${s.slug}` : ""}`,
   }))
 
   return (

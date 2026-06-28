@@ -20,7 +20,7 @@ import { LpFaq } from "@/components/lp-faq"
 import { LpHeroMedia } from "@/components/lp-hero-media"
 import type { Metadata } from "next"
 import { getLandingProdotto, getSiteSettings } from "@/sanity/queries"
-import { buildMetadata, SEO_DEFAULTS } from "@/lib/seo"
+import { buildMetadata, SEO_DEFAULTS, siteUrl } from "@/lib/seo"
 
 export const revalidate = 3600
 
@@ -48,8 +48,9 @@ export default async function LandingPage() {
   const stelle = Math.max(0, Math.min(5, lp?.recensione_stelle ?? 5))
 
   // ── Schema markup JSON-LD (ognuno generato SOLO se ci sono i dati) ──
-  // n8n: PROMPT-SEO — sostituire il dominio con quello reale del cliente
-  const LP_URL = "https://www.brandpmi.it/lp/lancio-prodotto"
+  // Il dominio arriva da Sanity tramite `base`.
+  const base = siteUrl(settings?.url_sito)
+  const LP_URL = `${base}/lp/lancio-prodotto`
   const metaTitle = lp?.seo?.meta_title?.trim() || SEO_DEFAULTS.landing.title
   const metaDesc = lp?.seo?.meta_description?.trim() || SEO_DEFAULTS.landing.description
 

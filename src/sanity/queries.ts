@@ -59,6 +59,7 @@ export const CASE_STUDY_QUERY = `
 export const SITE_SETTINGS_QUERY = `
   *[_type == "siteSettings"][0] {
     nome_azienda,
+    url_sito,
     "logo_url": logo.asset->url,
     "logo_alt": coalesce(logo.alt, ""),
     footer_descrizione,

@@ -33,6 +33,13 @@ const siteSettings = {
       rows: 3,
       group: 'brand',
     },
+    {
+      name: 'url_sito',
+      title: 'URL del sito',
+      type: 'url',
+      group: 'brand',
+      description: 'Dominio completo, es. https://www.azienda.it — usato per robots.txt, sitemap e SEO.',
+    },
     // Aspetto
     {
       name: 'colore_primario',

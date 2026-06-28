@@ -10,7 +10,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { ContactFormFull } from "@/components/contact-form-full"
 import type { Metadata } from "next"
 import { getContattiPage, getSiteSettings } from "@/sanity/queries"
-import { buildMetadata, SEO_DEFAULTS } from "@/lib/seo"
+import { buildMetadata, SEO_DEFAULTS, siteUrl } from "@/lib/seo"
 
 export const revalidate = 3600
 
@@ -28,13 +28,14 @@ export default async function Contatti() {
   const certificazioni = settings?.certificazioni ?? []
   const indirizzo = [settings?.indirizzo, settings?.citta].filter(Boolean).join(", ")
   const email = settings?.email ?? "info@brandpmi.it"
+  const base = siteUrl(settings?.url_sito)
 
-  // n8n: PROMPT-18-BREADCRUMB — aggiorna url_sito con il dominio reale del cliente
+  // Il dominio (Home) arriva da Sanity tramite `base`.
   const jsonLdBreadcrumb = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.brandpmi.it" },
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": base },
       { "@type": "ListItem", "position": 2, "name": "Contatti" },
     ],
   }

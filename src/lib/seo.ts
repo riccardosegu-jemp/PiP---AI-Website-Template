@@ -1,5 +1,15 @@
 import type { Metadata } from "next"
 
+// Dominio del sito. Viene da Sanity (Impostazioni sito › URL del sito); se è vuoto
+// usa il placeholder qui sotto. È l'UNICA fonte del dominio: robots, metadata e
+// tutti gli schema JSON-LD passano da qui.
+// n8n: PROMPT-SEO — il dominio reale si imposta in Sanity, non in questo file.
+export const SITE_URL_FALLBACK = "https://www.brandpmi.it"
+
+export function siteUrl(url?: string | null): string {
+  return (url || SITE_URL_FALLBACK).replace(/\/$/, "")
+}
+
 /**
  * SEO — title e description di default per ogni pagina.
  *

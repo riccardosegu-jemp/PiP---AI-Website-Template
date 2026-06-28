@@ -3,27 +3,7 @@ import { Geist_Mono } from "next/font/google"
 import "./globals.css"
 import Script from "next/script"
 import { getSiteSettings } from "@/sanity/queries"
-import { SEO_DEFAULTS } from "@/lib/seo"
-
-// n8n: PROMPT-17 — aggiorna url_sito, coordinate_gps e logo_url con i dati reali del cliente
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "BrandPMI",
-  "url": "https://www.brandpmi.it",
-  "telephone": "+39 030 123 4567",
-  "email": "info@brandpmi.it",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Via dell'Industria 12",
-    "postalCode": "25030",
-    "addressLocality": "Castel Mella",
-    "addressRegion": "BS",
-    "addressCountry": "IT",
-  },
-  "openingHours": ["Mo-Fr 08:00-18:00"],
-  "image": "https://www.brandpmi.it/logo.svg",
-}
+import { SEO_DEFAULTS, siteUrl } from "@/lib/seo"
 
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] })
 
@@ -41,17 +21,20 @@ const GFONTS_SLUG: Record<string, string> = {
 }
 
 // Metadata di base (default per le rotte senza generateMetadata, es. /studio).
-// Le singole pagine sovrascrivono title/description via generateMetadata().
-// metadataBase serve a Next.js per costruire gli URL assoluti di Open Graph.
-export const metadata: Metadata = {
-  // n8n: PROMPT-SEO — sostituire con il dominio reale del cliente
-  metadataBase: new URL("https://www.brandpmi.it"),
-  title: { default: SEO_DEFAULTS.home.title, template: "%s" },
-  description: SEO_DEFAULTS.home.description,
+// Le singole pagine sovrascrivono title/description con il proprio generateMetadata().
+// metadataBase (dominio) arriva da Sanity: serve per gli URL assoluti di Open Graph.
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSiteSettings()
+  return {
+    metadataBase: new URL(siteUrl(settings?.url_sito)),
+    title: { default: SEO_DEFAULTS.home.title, template: "%s" },
+    description: SEO_DEFAULTS.home.description,
+  }
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const settings = await getSiteSettings()
+  const base = siteUrl(settings?.url_sito)
 
   const navy   = settings?.colore_primario   || "#1b3a5c"
   const teal   = settings?.colore_secondario || "#2a7f6f"
@@ -71,6 +54,27 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   const fontSlug = GFONTS_SLUG[font] ?? GFONTS_SLUG["Inter"]
   const gFontsUrl = `https://fonts.googleapis.com/css2?family=${fontSlug}&display=swap`
+
+  // n8n: PROMPT-17 — i dati azienda (nome, telefono, indirizzo) restano qui;
+  // il dominio (url, image) arriva da Sanity tramite `base`.
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "BrandPMI",
+    "url": base,
+    "telephone": "+39 030 123 4567",
+    "email": "info@brandpmi.it",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Via dell'Industria 12",
+      "postalCode": "25030",
+      "addressLocality": "Castel Mella",
+      "addressRegion": "BS",
+      "addressCountry": "IT",
+    },
+    "openingHours": ["Mo-Fr 08:00-18:00"],
+    "image": `${base}/logo.svg`,
+  }
 
   return (
     <html lang="it" className={`${geistMono.variable} h-full antialiased`}>

@@ -10,8 +10,8 @@ import {
 } from "@/components/ui/section"
 import { Card, CardContent } from "@/components/ui/card"
 import type { Metadata } from "next"
-import { getCaseStudy, getCaseStudyPage } from "@/sanity/queries"
-import { buildMetadata, SEO_DEFAULTS } from "@/lib/seo"
+import { getCaseStudy, getCaseStudyPage, getSiteSettings } from "@/sanity/queries"
+import { buildMetadata, SEO_DEFAULTS, siteUrl } from "@/lib/seo"
 
 export const revalidate = 3600
 
@@ -22,15 +22,16 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function CaseStudy() {
-  const casi = await getCaseStudy()
+  const [casi, settings] = await Promise.all([getCaseStudy(), getSiteSettings()])
   const [primo, ...restanti] = casi
+  const base = siteUrl(settings?.url_sito)
 
-  // n8n: PROMPT-18-BREADCRUMB — aggiorna url_sito con il dominio reale del cliente
+  // Il dominio (Home) arriva da Sanity tramite `base`.
   const jsonLdBreadcrumb = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.brandpmi.it" },
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": base },
       { "@type": "ListItem", "position": 2, "name": "Case Study" },
     ],
   }
