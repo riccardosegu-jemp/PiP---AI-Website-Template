@@ -240,7 +240,7 @@ export const LANDING_PRODOTTO_QUERY = `
     faq_tagline,
     faq_titolo,
     faq_descrizione,
-    faq[] { _key, domanda, risposta },
+    faq[] { _key, domanda, risposta, keyword_target },
     social_label_loghi,
     "social_loghi": social_loghi[] { _key, "url": asset->url, "alt": coalesce(alt, "") },
     recensione_stelle,

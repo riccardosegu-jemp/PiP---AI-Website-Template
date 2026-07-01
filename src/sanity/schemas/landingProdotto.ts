@@ -118,6 +118,7 @@ const landingProdotto = {
     { name: 'faq_tagline', title: 'Tagline', type: 'string', group: 'faq' },
     { name: 'faq_titolo', title: 'Titolo', type: 'string', group: 'faq' },
     { name: 'faq_descrizione', title: 'Descrizione (l\'email viene da Impostazioni sito)', type: 'text', rows: 2, group: 'faq' },
+    // n8n: PROMPT-15-FAQ-GENERATOR — le FAQ generate da questo prompt vanno qui.
     {
       name: 'faq',
       title: 'Domande',
@@ -129,8 +130,14 @@ const landingProdotto = {
           fields: [
             { name: 'domanda', title: 'Domanda', type: 'string' },
             { name: 'risposta', title: 'Risposta', type: 'text', rows: 4 },
+            {
+              name: 'keyword_target',
+              title: 'Keyword target',
+              type: 'string',
+              description: 'Keyword SEO/GEO a cui risponde questa FAQ (solo per riferimento interno, non è mostrata sul sito).',
+            },
           ],
-          preview: { select: { title: 'domanda' } },
+          preview: { select: { title: 'domanda', subtitle: 'keyword_target' } },
         },
       ],
     },

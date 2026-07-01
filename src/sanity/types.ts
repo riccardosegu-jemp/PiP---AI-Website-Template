@@ -230,6 +230,7 @@ export type FaqItem = {
   _key: string
   domanda: string | null
   risposta: string | null
+  keyword_target: string | null
 }
 
 export type LpVideo = {
