@@ -13,21 +13,54 @@ export default defineConfig({
   basePath: '/studio',
   plugins: [
     structureTool({
-      structure: (S) =>
-        S.list()
+      structure: (S, context) => {
+        // Singleton: apre direttamente il documento (id fisso = nome del tipo),
+        // così lo Studio lo crea in bozza al primo salvataggio invece di
+        // mostrare una lista vuota senza modo di crearlo.
+        const singleton = (id: string, title: string) =>
+          S.listItem()
+            .title(title)
+            .id(id)
+            .child(S.document().schemaType(id).documentId(id))
+
+        // Sezione "Servizi"/"Case Study": un solo click mostra l'item "SEO
+        // pagina" (singleton serviziPage/caseStudyPage) insieme ai documenti
+        // veri e propri, nello stesso pane — niente livello in più.
+        const sectionWithSeo = (pageId: string, title: string, itemsType: string) =>
+          S.listItem()
+            .title(title)
+            .id(itemsType)
+            .child(async () => {
+              const client = context.getClient({ apiVersion: '2024-01-01' })
+              const docs = await client.fetch<{ _id: string }[]>(
+                `*[_type == $type] | order(_createdAt asc){ _id }`,
+                { type: itemsType },
+              )
+              return S.list()
+                .title(title)
+                .items([
+                  S.listItem()
+                    .title('SEO pagina')
+                    .id(pageId)
+                    .child(S.document().schemaType(pageId).documentId(pageId)),
+                  S.divider(),
+                  ...docs.map((doc) => S.documentListItem().id(doc._id).schemaType(itemsType)),
+                ])
+            })
+
+        return S.list()
           .title('Contenuti')
           .items([
-            S.documentTypeListItem('siteSettings').title('Impostazioni sito'),
-            S.documentTypeListItem('homepage').title('Homepage'),
-            S.documentTypeListItem('chiSiamo').title('Chi siamo'),
-            S.documentTypeListItem('contattiPage').title('Pagina contatti'),
-            S.documentTypeListItem('serviziPage').title('Pagina servizi (SEO)'),
-            S.documentTypeListItem('caseStudyPage').title('Pagina case study (SEO)'),
-            S.documentTypeListItem('landingProdotto').title('Landing — Lancio prodotto'),
+            singleton('siteSettings', 'Impostazioni sito'),
+            singleton('homepage', 'Homepage'),
+            singleton('chiSiamo', 'Chi siamo'),
+            singleton('contattiPage', 'Pagina contatti'),
+            singleton('landingProdotto', 'Landing — Lancio prodotto'),
             S.divider(),
-            S.documentTypeListItem('servizio').title('Servizi'),
-            S.documentTypeListItem('caseStudy').title('Case Study'),
-          ]),
+            sectionWithSeo('serviziPage', 'Servizi', 'servizio'),
+            sectionWithSeo('caseStudyPage', 'Case Study', 'caseStudy'),
+          ])
+      },
     }),
   ],
   schema: {

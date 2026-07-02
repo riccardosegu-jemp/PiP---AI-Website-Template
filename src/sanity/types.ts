@@ -12,6 +12,7 @@ export type Servizio = {
   immagine_url: string | null
   immagine_alt: string
   ordine: number | null
+  seo: Seo | null
 }
 
 export type Metrica = {
@@ -32,6 +33,7 @@ export type CaseStudy = {
   descrizione_completa: string | null
   in_evidenza: boolean
   ordine: number | null
+  seo: Seo | null
 }
 
 export type Certificazione = {
@@ -98,13 +100,23 @@ export type Logo = {
 }
 
 // SEO: campi opzionali per title/description. Se null, le pagine usano i default
-// di src/lib/seo.ts. SeoDoc è il wrapper per i singleton serviziPage/caseStudyPage.
+// di src/lib/seo.ts.
 export type Seo = {
   meta_title: string | null
   meta_description: string | null
 }
 
-export type SeoDoc = {
+export type ServiziPageDoc = {
+  hero_tagline: string | null
+  hero_titolo: string | null
+  hero_descrizione: string | null
+  seo: Seo | null
+}
+
+export type CaseStudyPageDoc = {
+  hero_tagline: string | null
+  hero_titolo: string | null
+  hero_descrizione: string | null
   seo: Seo | null
 }
 

@@ -20,7 +20,11 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Servizi() {
-  const [servizi, settings] = await Promise.all([getServizi(), getSiteSettings()])
+  const [servizi, settings, page] = await Promise.all([
+    getServizi(),
+    getSiteSettings(),
+    getServiziPage(),
+  ])
   const base = siteUrl(settings?.url_sito)
 
   // Il dominio (Home / url) arriva da Sanity tramite `base`.
@@ -36,8 +40,8 @@ export default async function Servizi() {
   const jsonLdServizi = servizi.map((s) => ({
     "@context": "https://schema.org",
     "@type": "Service",
-    "name": s.titolo,
-    "description": s.descrizione_completa ?? s.titolo,
+    "name": s.seo?.meta_title || s.titolo,
+    "description": s.seo?.meta_description || s.descrizione_completa || s.titolo,
     "provider": {
       "@type": "Organization",
       "name": "BrandPMI",
@@ -60,14 +64,13 @@ export default async function Servizi() {
       <Section variant="muted" size="lg">
         <SectionContainer>
           <SectionHeader align="center">
-            <SectionTagline>Capacità produttiva</SectionTagline>
+            <SectionTagline>{page?.hero_tagline || "Capacità produttiva"}</SectionTagline>
             <SectionTitle className="text-[40px] md:text-[52px]">
-              Lavorazioni e servizi per l&apos;industria
+              {page?.hero_titolo || "Lavorazioni e servizi per l'industria"}
             </SectionTitle>
             <SectionDescription>
-              Una filiera produttiva completa — dalla prototipazione al trattamento
-              superficiale — con qualità certificata ISO 9001 e consegne puntuali in
-              tutta Europa.
+              {page?.hero_descrizione ||
+                "Una filiera produttiva completa — dalla prototipazione al trattamento superficiale — con qualità certificata ISO 9001 e consegne puntuali in tutta Europa."}
             </SectionDescription>
           </SectionHeader>
         </SectionContainer>

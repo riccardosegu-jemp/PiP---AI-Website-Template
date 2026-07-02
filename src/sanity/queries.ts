@@ -7,7 +7,8 @@ import type {
   ChiSiamo,
   ContattiPage,
   LandingProdotto,
-  SeoDoc,
+  ServiziPageDoc,
+  CaseStudyPageDoc,
 } from './types'
 
 /**
@@ -36,7 +37,8 @@ export const SERVIZI_QUERY = `
     punti_chiave,
     "immagine_url": immagine.asset->url,
     "immagine_alt": coalesce(immagine.alt, ""),
-    ordine
+    ordine,
+    seo { meta_title, meta_description }
   }
 `
 
@@ -52,7 +54,8 @@ export const CASE_STUDY_QUERY = `
     descrizione_breve,
     descrizione_completa,
     in_evidenza,
-    ordine
+    ordine,
+    seo { meta_title, meta_description }
   }
 `
 
@@ -187,22 +190,32 @@ export async function getContattiPage(): Promise<ContattiPage | null> {
   return client.fetch<ContattiPage | null>(CONTATTI_PAGE_QUERY, {}, opts)
 }
 
-// Pagine /servizi e /case-study: singleton che contengono solo i metadati SEO
-// (le card vengono dai documenti servizio/caseStudy, vedi query sopra).
+// Pagine /servizi e /case-study: singleton con hero (tagline/titolo/descrizione)
+// e metadati SEO (le card vengono dai documenti servizio/caseStudy, vedi query sopra).
 export const SERVIZI_PAGE_QUERY = `
-  *[_type == "serviziPage"][0] { seo { meta_title, meta_description } }
+  *[_type == "serviziPage"][0] {
+    hero_tagline,
+    hero_titolo,
+    hero_descrizione,
+    seo { meta_title, meta_description }
+  }
 `
 
 export const CASE_STUDY_PAGE_QUERY = `
-  *[_type == "caseStudyPage"][0] { seo { meta_title, meta_description } }
+  *[_type == "caseStudyPage"][0] {
+    hero_tagline,
+    hero_titolo,
+    hero_descrizione,
+    seo { meta_title, meta_description }
+  }
 `
 
-export async function getServiziPage(): Promise<SeoDoc | null> {
-  return client.fetch<SeoDoc | null>(SERVIZI_PAGE_QUERY, {}, opts)
+export async function getServiziPage(): Promise<ServiziPageDoc | null> {
+  return client.fetch<ServiziPageDoc | null>(SERVIZI_PAGE_QUERY, {}, opts)
 }
 
-export async function getCaseStudyPage(): Promise<SeoDoc | null> {
-  return client.fetch<SeoDoc | null>(CASE_STUDY_PAGE_QUERY, {}, opts)
+export async function getCaseStudyPage(): Promise<CaseStudyPageDoc | null> {
+  return client.fetch<CaseStudyPageDoc | null>(CASE_STUDY_PAGE_QUERY, {}, opts)
 }
 
 export const LANDING_PRODOTTO_QUERY = `

@@ -1,11 +1,14 @@
-// Singleton per i metadati della pagina /case-study.
-// Le card dei casi vengono dai documenti "caseStudy"; qui c'è solo il SEO
-// (ed eventuali futuri campi di intestazione pagina).
+// Singleton per l'intestazione e i metadati della pagina /case-study.
+// Le card dei casi vengono dai documenti "caseStudy"; qui c'è l'hero della
+// pagina (tagline/titolo/descrizione) e il SEO.
 const caseStudyPage = {
   name: 'caseStudyPage',
   title: 'Pagina case study',
   type: 'document',
   fields: [
+    { name: 'hero_tagline', title: 'Tagline', type: 'string' },
+    { name: 'hero_titolo', title: 'Titolo', type: 'string' },
+    { name: 'hero_descrizione', title: 'Descrizione', type: 'text', rows: 3 },
     { name: 'seo', title: 'SEO', type: 'seo' },
   ],
   preview: {

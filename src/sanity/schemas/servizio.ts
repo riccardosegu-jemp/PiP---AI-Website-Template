@@ -62,6 +62,10 @@ const servizio = {
       title: 'Ordine di visualizzazione',
       type: 'number',
     },
+    // Usato solo per arricchire il JSON-LD Service generato per ogni servizio
+    // in /servizi — questi servizi non hanno una pagina propria, quindi non
+    // producono un <title>/<meta description> indicizzabile a parte.
+    { name: 'seo', title: 'SEO (dati strutturati)', type: 'seo' },
   ],
   orderings: [
     {

@@ -73,6 +73,10 @@ const caseStudy = {
       title: 'Ordine di visualizzazione',
       type: 'number',
     },
+    // Usato solo per arricchire il JSON-LD generato per ogni caso in
+    // /case-study — questi casi non hanno una pagina propria, quindi non
+    // producono un <title>/<meta description> indicizzabile a parte.
+    { name: 'seo', title: 'SEO (dati strutturati)', type: 'seo' },
   ],
   orderings: [
     {

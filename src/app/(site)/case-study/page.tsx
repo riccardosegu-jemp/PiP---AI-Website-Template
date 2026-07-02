@@ -22,7 +22,11 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function CaseStudy() {
-  const [casi, settings] = await Promise.all([getCaseStudy(), getSiteSettings()])
+  const [casi, settings, page] = await Promise.all([
+    getCaseStudy(),
+    getSiteSettings(),
+    getCaseStudyPage(),
+  ])
   const [primo, ...restanti] = casi
   const base = siteUrl(settings?.url_sito)
 
@@ -36,6 +40,18 @@ export default async function CaseStudy() {
     ],
   }
 
+  const jsonLdCasi = casi.map((c) => ({
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": c.seo?.meta_title || c.titolo,
+    "description": c.seo?.meta_description || c.descrizione_completa || c.titolo,
+    "about": {
+      "@type": "Organization",
+      "name": "BrandPMI",
+    },
+    "url": `${base}/case-study${c.slug ? `#${c.slug}` : ""}`,
+  }))
+
   return (
     <>
       <h1 className="sr-only">Case Study</h1>
@@ -43,12 +59,21 @@ export default async function CaseStudy() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdCasi) }}
+      />
       <Section variant="muted" size="lg">
         <SectionContainer>
           <SectionHeader align="center">
-            <SectionTagline>Risultati concreti</SectionTagline>
-            <SectionTitle className="text-[40px] md:text-[52px]">Casi studio dai nostri clienti</SectionTitle>
-            <SectionDescription>Sfide reali, numeri reali. Come abbiamo aiutato aziende manifatturiere italiane ed europee a migliorare qualità, lead time e costi di fornitura.</SectionDescription>
+            <SectionTagline>{page?.hero_tagline || "Risultati concreti"}</SectionTagline>
+            <SectionTitle className="text-[40px] md:text-[52px]">
+              {page?.hero_titolo || "Casi studio dai nostri clienti"}
+            </SectionTitle>
+            <SectionDescription>
+              {page?.hero_descrizione ||
+                "Sfide reali, numeri reali. Come abbiamo aiutato aziende manifatturiere italiane ed europee a migliorare qualità, lead time e costi di fornitura."}
+            </SectionDescription>
           </SectionHeader>
         </SectionContainer>
       </Section>
