@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useSyncExternalStore } from "react"
 import {
   Accordion,
   AccordionItem,
@@ -9,10 +9,11 @@ import {
 } from "@/components/ui/accordion"
 import type { FaqItem } from "@/sanity/types"
 
+const emptySubscribe = () => () => {}
+
 // Previene SSR dell'Accordion Base UI (usa --accordion-panel-height via JS → hydration mismatch)
 function ClientOnly({ children }: { children: React.ReactNode }) {
-  const [mounted, setMounted] = useState(false)
-  useEffect(() => { setMounted(true) }, [])
+  const mounted = useSyncExternalStore(emptySubscribe, () => true, () => false)
   if (!mounted) return null
   return <>{children}</>
 }

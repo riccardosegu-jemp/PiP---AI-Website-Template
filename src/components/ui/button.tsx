@@ -53,25 +53,25 @@ function Button({
 }
 
 // ── Icon Button ──────────────────────────────────────────────────────────────
-// Figma: Icon Button — circle, 3 variants (Primary/Neutral/Subtle) × 2 sizes (Medium/Small)
+// Figma: Icon Button — cerchio, 3 varianti (Primary/Neutral/Subtle) × 2 dimensioni (Medium/Small)
 
 const iconButtonVariants = cva(
-  // Base: circle, transition, outline, disabled
+  // Base: cerchio, transizione, outline, disabled
   "inline-flex shrink-0 items-center justify-center rounded-full transition-colors outline-none select-none disabled:pointer-events-none disabled:opacity-40 [&_svg]:pointer-events-none [&_svg]:shrink-0",
   {
     variants: {
       variant: {
-        // Primary — filled navy, white icon
+        // Primary — sfondo navy pieno, icona bianca
         primary: "bg-[var(--brand-navy)] text-white hover:bg-[var(--brand-navy-dark)]",
-        // Neutral — white bg, gray border, gray icon → navy on hover
+        // Neutral — sfondo bianco, bordo grigio, icona grigia → navy in hover
         neutral: "bg-white border border-[var(--brand-border)] text-gray-500 hover:border-[var(--brand-navy)] hover:text-[var(--brand-navy)]",
-        // Subtle — no border, no bg, gray icon → navy on hover
+        // Subtle — nessun bordo, nessuno sfondo, icona grigia → navy in hover
         subtle:  "bg-transparent text-gray-400 hover:bg-[var(--brand-surface)] hover:text-[var(--brand-navy)]",
       },
       size: {
-        // Medium — 40px (iconMedium = 32px icon inside)
+        // Medium — 40px (iconMedium = icona di 32px all'interno)
         md: "size-10 [&_svg:not([class*='size-'])]:size-5",
-        // Small — 32px (iconSmall = 24px icon inside)
+        // Small — 32px (iconSmall = icona di 24px all'interno)
         sm: "size-8 [&_svg:not([class*='size-'])]:size-4",
       },
     },
@@ -105,7 +105,7 @@ function IconButton({
 }
 
 // ── Button Group ─────────────────────────────────────────────────────────────
-// Figma: Button Group — Justify / Start / End / Center / Stack
+// Figma: Button Group — layout disponibili: Justify / Start / End / Center / Stack
 
 type ButtonGroupLayout = "justify" | "start" | "end" | "center" | "stack"
 

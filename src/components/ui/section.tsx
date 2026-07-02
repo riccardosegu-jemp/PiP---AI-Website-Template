@@ -47,13 +47,11 @@ function SectionContainer({ className, ...props }: React.ComponentProps<"div">) 
 
 interface SectionHeaderProps extends React.ComponentProps<"div"> {
   align?: "left" | "center"
-  dark?: boolean
 }
 
 function SectionHeader({
   className,
   align = "left",
-  dark = false,
   ...props
 }: SectionHeaderProps) {
   return (
