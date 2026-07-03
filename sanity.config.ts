@@ -14,14 +14,31 @@ export default defineConfig({
   plugins: [
     structureTool({
       structure: (S, context) => {
-        // Singleton: apre direttamente il documento (id fisso = nome del tipo),
-        // così lo Studio lo crea in bozza al primo salvataggio invece di
-        // mostrare una lista vuota senza modo di crearlo.
-        const singleton = (id: string, title: string) =>
+        // Cerca il documento già esistente di questo tipo (i singleton creati
+        // da Sanity hanno un _id casuale, NON uguale al nome del tipo). Se non
+        // esiste ancora, apre un documento nuovo con id fisso = nome del tipo,
+        // così lo Studio lo crea in bozza al primo salvataggio.
+        // Ordina per data di creazione crescente: se per errore esistono due
+        // documenti dello stesso tipo, prende sempre il più vecchio (quello
+        // con i contenuti reali), non un eventuale duplicato vuoto più recente.
+        const resolveSingletonId = async (typeName: string) => {
+          const client = context.getClient({ apiVersion: '2024-01-01' })
+          const existingId = await client.fetch<string | null>(
+            `*[_type == $type] | order(_createdAt asc)[0]._id`,
+            { type: typeName },
+          )
+          return existingId || typeName
+        }
+
+        const singleton = (typeName: string, title: string) =>
           S.listItem()
             .title(title)
-            .id(id)
-            .child(S.document().schemaType(id).documentId(id))
+            .id(typeName)
+            .child(async () =>
+              S.document()
+                .schemaType(typeName)
+                .documentId(await resolveSingletonId(typeName)),
+            )
 
         // Sezione "Servizi"/"Case Study": un solo click mostra l'item "SEO
         // pagina" (singleton serviziPage/caseStudyPage) insieme ai documenti
@@ -42,7 +59,7 @@ export default defineConfig({
                   S.listItem()
                     .title('SEO pagina')
                     .id(pageId)
-                    .child(S.document().schemaType(pageId).documentId(pageId)),
+                    .child(S.document().schemaType(pageId).documentId(await resolveSingletonId(pageId))),
                   S.divider(),
                   ...docs.map((doc) => S.documentListItem().id(doc._id).schemaType(itemsType)),
                 ])
